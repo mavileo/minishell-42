@@ -32,7 +32,8 @@ SRCS = 	ft_memset.c \
 		ft_itoa.c \
 		ft_strmapi.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-		ft_lstnew.c \
+		ft_putstr.c \
+		ft_lstnew.c ft_lstprint.c \
 		ft_lstadd_front.c ft_lstadd_back.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -54,7 +55,7 @@ $(NAME): $(SRCS)
 all: $(NAME)
 
 clean:
-		rm -f $(OBJS)
+		rm -f $(OBJS) *.gch
 
 fclean: clean
 		rm -f $(NAME)

@@ -26,6 +26,7 @@ typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
 }				t_list;
 
 void			*ft_memset(void *s, int c, size_t n);
@@ -62,6 +63,7 @@ char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(const char *s, int fd);
+void			ft_putstr(const char *s);
 void			ft_putendl_fd(char const *s, int fd);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *new);
@@ -75,6 +77,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
 int				ft_index(const char *s, int c);
 int				ft_indexr(const char *s, int c);
+void			ft_lstprint(t_list *lst, void (*print)(void*));
 
 int				get_next_line(int fd, char **line);
 

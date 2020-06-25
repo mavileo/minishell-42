@@ -3,6 +3,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
+
 #include "libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -15,6 +17,24 @@
 
 #define BUFFER_SIZE 4096
 
-void    prompt(void);
+enum	e_token_type
+{
+	COMMAND,
+	REDIR1,
+	REDIR2,
+	REDIR3,
+	PIPE,
+	AND,
+	OR
+};
+
+typedef struct		s_token
+{
+	enum e_token_type type;
+	char **args;
+}					t_token;
+
+void		prompt(void);
+t_token		*input_to_token_list(char *input, void *env);
 
 #endif
