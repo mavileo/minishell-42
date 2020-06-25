@@ -7,7 +7,16 @@ LIBS = minishlib.a libft/libft.a
 
 #BUILTINS 
 
-MINISHFCT = prompt.c
+MINISHFCT = prompt.c		\
+			main.c			\
+			ft_echo.c		\
+			ft_pwd.c		\
+			ft_cd.c			\
+			ft_export.c		\
+			ft_env.c		\
+			env_funcs.c		\
+			env_funcs2.c	\
+			utils.c		
 
 ALL_SRCS = $(MINISHFCT) # $(addprefix builtins/,$(BUILTINS))
 

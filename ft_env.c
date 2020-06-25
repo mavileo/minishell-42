@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/25 07:20:57 by mavileo          ###   ########.fr       */
+/*   Created: 2020/06/25 06:54:51 by mavileo           #+#    #+#             */
+/*   Updated: 2020/06/25 06:59:12 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *env = NULL;
-
-int		main(int ac, char *av[], char *envp[])
+int 	ft_env(char **args)
 {
-	char *input;
-
-	init_env();
-	prompt();
-	get_next_line(0, &input);
+	while (env)
+	{
+		ft_putstr_fd(env->name, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(env->value, 1);
+		ft_putstr_fd("\n", 1);
+		env = env->next;
+	}
 	return (0);
 }
