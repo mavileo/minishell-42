@@ -2,7 +2,15 @@
 
 #include "minishell.h"
 
-static t_list	*ft_split_iq(char *s)
+static void		quotes_onoff(char *q, char c)
+{
+	if ((c == 39 || c == '"') && *q == 0)
+		*q = c;
+	else if ((c == 39 && *q == 39) || (c == '"' && *q == '"'))
+		*q = 0;
+}
+
+static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux quotes
 {
 	char q;
 	t_list *l;
@@ -11,7 +19,6 @@ static t_list	*ft_split_iq(char *s)
 
 	l = NULL;
 	i = 0;
-	j = 0;
 	q = 0;
 	while (s[i])
 	{
@@ -20,10 +27,7 @@ static t_list	*ft_split_iq(char *s)
 		j = i;
 		while (s[i] != '\0' && (s[i] != 32 || (s[i] == 32 && q != 0)))
 		{
-			if ((s[i] == 39 || s[i] == '"') && q == 0)
-				q = s[i];
-			else if ((s[i] == 39 && q == 39) || (s[i] == '"' && q == '"'))
-				q = 0;
+			quotes_onoff(&q, s[i]);	
 			i++;
 		}
 		if ((s[i] == 32 && q == 0) || (s[i] == '\0' && s[i - 1] != 32))
@@ -31,11 +35,73 @@ static t_list	*ft_split_iq(char *s)
 	}
 	if (q != 0)
 	{
-		write(1, "syntax error: open quotes\n", ft_strlen("syntax error: open quotes\n"));
+		printf("syntax error: open quotes %d\n", q);
 		ft_lstclear(&l, free);
 	}
 	return (l);
 }
+
+static int		there_is_an_operator(const char *s, unsigned int *i, unsigned int *j) // renvoie les index start et end d'une substring représentant un operateur
+{
+	char q;
+
+	q = 0;
+	*i = -1;
+	while (s[++(*i)])
+	{
+		quotes_onoff(&q, s[*i]);
+		if ((s[*i] == '>' || s[*i] == '<' || s[*i] == '|') && (*i == 0 || s[(*i) - 1] != '\\') && q == 0)
+		{
+			*j = *i + 1;
+			if (s[*i] == '>' && s[(*i) + 1] == '>')
+				*j = (*i) + 2;
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static void	ft_split2(t_list **l) // cherche les operateurs et resplit
+{
+	unsigned int i;
+	unsigned int j;
+	char *s;
+	t_list *current;
+
+	current = *l;
+	while (current && (s = current->content))
+	{
+		if (there_is_an_operator(s, &i, &j))
+		{
+			if (i != 0)
+			{
+				ft_lstinsert(current, ft_lstnew(ft_substr(s, i, (j - i)))); // new = op
+				if (s[j] != 0)
+					ft_lstinsert(current->next, ft_lstnew(ft_substr(s, j, ft_strlen(s)))); // new = after
+				s[i] = 0; // cut à l'opérateur
+			}
+			else if (s[j] != 0)
+			{
+				ft_lstinsert(current, ft_lstnew(ft_substr(s, j, ft_strlen(s)))); // new = after
+				s[j] = 0; // cut à l'opérateur
+			}
+		}
+		current = current->next;
+	}
+}
+
+/*
+static t_list	*to_token(t_list **l)
+{
+	// regarde tout les maillons, tant que c'est du word on concat en 2darray, si c'est un operateur on garde le maillon, ainsi de suite
+	// sauf redirection : premier word apres operateur redirection == argument de redirection à mettre dans son token et words suivant == arguments de la commande
+	while (*l)
+	{
+			
+		*l = (*l)->next;
+	}
+}
+*/
 
 /*
 **	Récupère la string input, la transforme en une liste de tokens.
@@ -68,8 +134,13 @@ t_token     *input_to_token_list(char *input, void *env)
 //	char **words;
 //	unsigned int i;
 
-	l = ft_split_iq(input);
+	l = ft_split1(input);
 	ft_lstprint(l, (void*)ft_putstr);
+	ft_split2(&l);
+	write(1, "\n", 1);
+	ft_lstprint(l, (void*)ft_putstr);
+
+//	l = to_token(&l);
 	ft_lstclear(&l, free);
 
 	return (NULL);

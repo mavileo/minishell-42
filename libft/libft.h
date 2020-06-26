@@ -78,6 +78,7 @@ void (*del)(void *));
 int				ft_index(const char *s, int c);
 int				ft_indexr(const char *s, int c);
 void			ft_lstprint(t_list *lst, void (*print)(void*));
+void    		ft_lstinsert(t_list *elem, t_list *new_elem);
 
 int				get_next_line(int fd, char **line);
 
