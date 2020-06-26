@@ -1,25 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 07:26:00 by mavileo          ###   ########.fr       */
+/*   Created: 2020/06/25 07:06:11 by mavileo           #+#    #+#             */
+/*   Updated: 2020/06/26 06:35:40 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *env = NULL;
-
-int		main(int ac, char *av[], char *envp[])
+int 	ft_unset(char **args)
 {
-	char *input;
+	t_env	*save;
+	t_env	*prev;
+	int		i;
 
-	init_env();
-	//prompt();
-	//get_next_line(0, &input);
+	i = 1;
+	save = env;
+	while (args[i++] && !(prev = NULL) && (env = save))
+	{
+		while (env)
+		{
+			if (!ft_strcmp(env->name, args[i - 1]))
+			{
+				if (prev)
+					prev->next = env->next;
+				else
+					save = env->next;
+				free_env(env);
+				break;
+			}
+			prev = env;
+			env = env->next;	
+		}
+	}
+	env = save;
 	return (0);
 }
