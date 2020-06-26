@@ -13,6 +13,13 @@ t_token	*ft_token_new(enum e_token_type type, char **args)
 	return (token);
 }
 
+void	ft_token_free(t_token *token)
+{
+	ft_tabfree((void**)token->args);
+	free(token);
+	token = NULL;
+}
+
 void		ft_print_token_list(t_list *l) // TEST ONLY !!! USELESS
 {
 	static const char *strs[] = {"COMMAND", "REDIR1", "REDIR2", "REDIR3", "PIPE", "SEMICOLON"};

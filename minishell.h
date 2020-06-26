@@ -44,6 +44,7 @@ t_token		*input_to_token_list(char *input, void *env);
 
 // TOKEN UTILS
 t_token		*ft_token_new(enum e_token_type type, char **args);
+void    ft_token_free(t_token *token);
 void        ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 
 #endif
