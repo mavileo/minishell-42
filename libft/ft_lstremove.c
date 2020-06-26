@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmouhali <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 12:52:06 by pmouhali          #+#    #+#             */
-/*   Updated: 2019/11/05 14:48:36 by pmouhali         ###   ########.fr       */
+/*   Created: 2019/11/05 13:13:10 by pmouhali          #+#    #+#             */
+/*   Updated: 2019/11/05 14:12:12 by pmouhali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list *new;
+/*
+**	Prends un maillon de liste chaînée en paramètre et le supprime.
+**
+**	BEFORE 	:   [elem-1]->[elem]->[elem1]
+**	AFTER	:	[elem-1]->[elem1]
+**
+*/
 
-	new = (t_list*)malloc(sizeof(t_list));
-	if (new)
-	{
-		new->content = content;
-		new->next = NULL;
-		new->prev = NULL;
-	}
-	return (new);
+void	ft_lstremove(t_list *elem, void (*delete)(void *e))
+{
+	if (!elem)
+		return ;
+	elem->next->prev = elem->prev;
+	elem->prev = elem->next;
+	elem->next = NULL;
+	elem->prev = NULL;
+	delete(elem);
+	elem = NULL;
 }

@@ -1,9 +1,10 @@
 NAME = minishell
 
+MAIN = main.c
+
 FLAGS = -Wall -Wextra -Werror
 
 LIBS = minishlib.a libft/libft.a
-
 
 #BUILTINS 
 
@@ -16,7 +17,9 @@ MINISHFCT = prompt.c		\
 			ft_env.c		\
 			env_funcs.c		\
 			env_funcs2.c	\
-			utils.c		
+			utils.c			\
+			token_utils.c 	\
+			input_to_token_list.c
 
 ALL_SRCS = $(MINISHFCT) # $(addprefix builtins/,$(BUILTINS))
 
@@ -28,7 +31,7 @@ OBJS = $(BUILTINS:.c=.o) $(MINISHFCT:.c=.o)
 all: $(NAME)
 
 $(NAME) : libft minishlib
-	gcc $(FLAGS) $(LIBS) -o $(NAME)
+	gcc -g $(FLAGS) $(MAIN)  $(LIBS) -o $(NAME)
 
 libft:
 	cd libft/ && make -s && make -s clean

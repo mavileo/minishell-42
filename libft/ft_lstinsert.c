@@ -12,13 +12,27 @@
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+/*
+**	Prends un maillon de liste chaînée en paramètre, et un element du même type.
+**	Insert l'element new a la suite du maillon
+**
+**	BEFORE 	:	[elem]->[elem2]
+**	AFTER	:	[elem]->[new_elem]->[elem2]
+**
+*/
+
+void	ft_lstinsert(t_list *elem, t_list *new_elem)
 {
-	if (*alst)
+	if (elem)
 	{
-		(ft_lstlast(*alst))->next = new;
-		new->prev = *alst;
+		if (elem->next)
+		{
+			new_elem->next = elem->next;
+			elem->next->prev = new_elem;
+		}
+		new_elem->prev = elem;
+		elem->next = new_elem;
 	}
 	else
-		*alst = new;
+		elem = new_elem;
 }

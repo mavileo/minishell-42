@@ -3,6 +3,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
+
 #include "libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -16,6 +18,21 @@
 #include <dirent.h>
 
 #define BUFFER_SIZE 4096
+#define	CMP_SYMBOLS "<>|;"
+#define	SYMBOL_MAX_LEN 2
+#define	SYMBOL_TABLE_FILE_LOCATION "input_to_token_list.c"
+
+enum	e_token_type
+{
+	COMMAND,
+	REDIR1,
+	REDIR2,
+	REDIR3,
+	PIPE,
+	SEMICOLON,
+	AND,
+	OR
+};
 
 typedef	struct	s_env
 {
@@ -24,9 +41,17 @@ typedef	struct	s_env
 	struct s_env	*next;
 }				t_env;
 
+typedef struct		s_token
+{
+	enum e_token_type type;
+	char **args;
+}					t_token;
+
 extern t_env	*env;
 
-void    prompt(void);
+/* GENERAL */
+void		prompt(void);
+t_token		*input_to_token_list(char *input, void *env);
 char	*ft_strjoin_free(char *s1, char *s2, int c);
 
 /* VARIABLES D'ENVIRONNEMENT */
@@ -48,5 +73,9 @@ int 	ft_unset(char **args);
 int 	ft_env(char **args);
 int 	ft_exit(char **args);
 
+/* TOKEN UTILS */
+t_token		*ft_token_new(enum e_token_type type, char **args);
+void		ft_token_free(t_token *token);
+void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 
 #endif
