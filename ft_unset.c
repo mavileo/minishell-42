@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/25 06:54:51 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 06:26:15 by mavileo          ###   ########.fr       */
+/*   Created: 2020/06/25 07:06:11 by mavileo           #+#    #+#             */
+/*   Updated: 2020/06/26 06:35:40 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int 	ft_env(char **args)
+int 	ft_unset(char **args)
 {
-	t_env	*tmp;
+	t_env	*save;
+	t_env	*prev;
+	int		i;
 
-	tmp = env;
-	while (tmp)
+	i = 1;
+	save = env;
+	while (args[i++] && !(prev = NULL) && (env = save))
 	{
-		ft_putstr_fd(tmp->name, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd(tmp->value, 1);
-		ft_putstr_fd("\n", 1);
-		tmp = tmp->next;
+		while (env)
+		{
+			if (!ft_strcmp(env->name, args[i - 1]))
+			{
+				if (prev)
+					prev->next = env->next;
+				else
+					save = env->next;
+				free_env(env);
+				break;
+			}
+			prev = env;
+			env = env->next;	
+		}
 	}
+	env = save;
 	return (0);
 }

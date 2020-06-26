@@ -30,21 +30,23 @@ void    prompt(void);
 char	*ft_strjoin_free(char *s1, char *s2, int c);
 
 /* VARIABLES D'ENVIRONNEMENT */
-t_env	*add_env(t_env *env, char *name, char *value);
+int		add_env(char *name, char *value);
 int		init_env(void);
 t_env	*get_env(char *name);
 char	*get_env_value(char *name);
-t_env	*actualise_env(char *name, char *value);
+int		actualise_env(char *name, char *value);
 char	*replace_env_in_str(char *str);
-void	*free_env(void);
+void	*free_env(t_env *env);
+void	*free_all_env(void);
 
 /* BUILTINS */
 int		ft_echo(char **args);
 int 	ft_pwd(char **args);
 int 	ft_cd(char **args);
 int 	ft_export(char **args);
-int 	ft_env(char **args);
 int 	ft_unset(char **args);
+int 	ft_env(char **args);
+int 	ft_exit(char **args);
 
 
 #endif
