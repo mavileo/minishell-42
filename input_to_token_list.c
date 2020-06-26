@@ -41,21 +41,37 @@ static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux 
 	return (l);
 }
 
+static const char *g_symbols_strs[6] = {
+	">>",
+	">",
+	"<",
+	"|",
+	";",
+	NULL
+};
+
 static int		there_is_an_operator(const char *s, unsigned int *i, unsigned int *j) // renvoie les index start et end d'une substring représentant un operateur
 {
 	char q;
+	unsigned int x;
 
 	q = 0;
 	*i = -1;
 	while (s[++(*i)])
 	{
 		quotes_onoff(&q, s[*i]);
-		if ((s[*i] == '>' || s[*i] == '<' || s[*i] == '|') && (*i == 0 || s[(*i) - 1] != '\\') && q == 0)
+		if (q == 0 && ft_index(CMP_SYMBOLS, s[*i]) != -1)
 		{
-			*j = *i + 1;
-			if (s[*i] == '>' && s[(*i) + 1] == '>')
-				*j = (*i) + 2;
-			return (1);
+			x = -1;
+			while (g_symbols_strs[++x])
+			{
+				*j = ft_strlen(g_symbols_strs[x]);
+				if (ft_strncmp(&s[*i], g_symbols_strs[x], *j) == 0)
+				{
+					*j = *i + *j;
+					return (1);
+				}
+			}
 		}
 	}
 	return (0);
@@ -137,7 +153,6 @@ t_token     *input_to_token_list(char *input, void *env)
 	l = ft_split1(input);
 	ft_lstprint(l, (void*)ft_putstr);
 	ft_split2(&l);
-	write(1, "\n", 1);
 	ft_lstprint(l, (void*)ft_putstr);
 
 //	l = to_token(&l);

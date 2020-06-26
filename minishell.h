@@ -17,6 +17,10 @@
 
 #define BUFFER_SIZE 4096
 
+#define	CMP_SYMBOLS "<>|;"
+#define	SYMBOL_MAX_LEN 2
+#define	SYMBOL_TABLE_FILE_LOCATION "input_to_token_list.c"
+
 enum	e_token_type
 {
 	COMMAND,

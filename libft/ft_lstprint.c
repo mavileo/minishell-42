@@ -21,4 +21,5 @@ void	ft_lstprint(t_list *lst, void (*print)(void*))
 		ft_putstr("]->");
 		lst = lst->next;
 	}
+	ft_putstr("\n");
 }

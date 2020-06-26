@@ -5,7 +5,7 @@
 - transfo tokens
 - interpréter (expand, escape)
 
-- remplacer printf par ft_printf
+- remplacer printf par ftprintf
 
 
 questions :
@@ -16,8 +16,3 @@ ls |> file.txt ? fichier vide
 ls |>> file.txt ? fichier vide
 ls <> file.txt ? output sur STDOUT file vide 
 ls >| file.txt ? fonctionne
-
-
-[    ]-->[     ]
-[    ]   [     ]
-[    ]<--[     ]
