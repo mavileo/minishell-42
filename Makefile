@@ -8,7 +8,7 @@ LIBS = minishlib.a libft/libft.a
 
 #BUILTINS 
 
-MINISHFCT = prompt.c input_to_token_list.c 
+MINISHFCT = prompt.c token_utils.c input_to_token_list.c 
 
 ALL_SRCS = $(MINISHFCT) # $(addprefix builtins/,$(BUILTINS))
 

@@ -106,18 +106,13 @@ static void	ft_split2(t_list **l) // cherche les operateurs et resplit
 	}
 }
 
-/*
 static t_list	*to_token(t_list **l)
 {
 	// regarde tout les maillons, tant que c'est du word on concat en 2darray, si c'est un operateur on garde le maillon, ainsi de suite
 	// sauf redirection : premier word apres operateur redirection == argument de redirection à mettre dans son token et words suivant == arguments de la commande
-	while (*l)
-	{
-			
-		*l = (*l)->next;
-	}
+	*l = ft_lstnew(ft_token_new(COMMAND, NULL));
+	return (NULL);
 }
-*/
 
 /*
 **	Récupère la string input, la transforme en une liste de tokens.
@@ -155,8 +150,11 @@ t_token     *input_to_token_list(char *input, void *env)
 	ft_split2(&l);
 	ft_lstprint(l, (void*)ft_putstr);
 
-//	l = to_token(&l);
 	ft_lstclear(&l, free);
+
+	to_token(&l);
+	l->next = ft_lstnew(ft_token_new(SEMICOLON, NULL));
+	ft_print_token_list(l);
 
 	return (NULL);
 }
