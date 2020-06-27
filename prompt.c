@@ -4,5 +4,5 @@
 
 void	prompt(void)
 {
-	write(1, "$> ", ft_strlen("$> "));
+	write(1, "$>", ft_strlen("$>"));
 }
