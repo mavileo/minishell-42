@@ -9,17 +9,17 @@ LIBS = minishlib.a libft/libft.a
 #BUILTINS 
 
 MINISHFCT = prompt.c		\
-			main.c			\
-			ft_echo.c		\
-			ft_pwd.c		\
-			ft_cd.c			\
-			ft_export.c		\
-			ft_env.c		\
-			env_funcs.c		\
-			env_funcs2.c	\
-			utils.c			\
 			token_utils.c 	\
+			add_token_functions.c \
 			input_to_token_list.c
+#			ft_echo.c		\ 
+#			ft_pwd.c		\
+#			ft_cd.c			\
+#			ft_export.c		\
+#			ft_env.c		\
+#			env_funcs.c		\
+#			env_funcs2.c	\
+#			utils.c			\ #
 
 ALL_SRCS = $(MINISHFCT) # $(addprefix builtins/,$(BUILTINS))
 
@@ -32,6 +32,9 @@ all: $(NAME)
 
 $(NAME) : libft minishlib
 	gcc -g $(FLAGS) $(MAIN)  $(LIBS) -o $(NAME)
+
+parsing: libft minishlib
+	gcc -g $(FLAGS) main_parsing.c  $(LIBS) -o $(NAME)
 
 libft:
 	cd libft/ && make -s && make -s clean
