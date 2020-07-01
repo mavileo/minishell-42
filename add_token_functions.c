@@ -21,8 +21,9 @@ t_token	*add_command_token(t_list **token_lst, t_list **e, t_token **current)
 	if (current && *current)
 	{
 		new_t = *current;
-		str = (*e)->content;
+		str = escape_expand((*e)->content);
 		new_t->args = ft_tabpush(new_t->args, str);
+		free(str);
 		return (*current);
 	}
 	if ((new_t = ft_token_new(COMMAND, ft_tabpush(NULL, (*e)->content))) == NULL)

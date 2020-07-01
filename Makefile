@@ -11,7 +11,8 @@ LIBS = minishlib.a libft/libft.a
 MINISHFCT = prompt.c		\
 			token_utils.c 	\
 			add_token_functions.c \
-			input_to_token_list.c
+			input_to_token_list.c \
+			escape_expand.c parsing_utils.c
 #			ft_echo.c		\ 
 #			ft_pwd.c		\
 #			ft_cd.c			\

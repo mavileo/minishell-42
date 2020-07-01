@@ -2,14 +2,6 @@
 
 #include "minishell.h"
 
-static void		quotes_onoff(char *q, char c)
-{
-	if ((c == 39 || c == '"') && *q == 0)
-		*q = c;
-	else if ((c == 39 && *q == 39) || (c == '"' && *q == '"'))
-		*q = 0;
-}
-
 static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux quotes
 {
 	char q;
@@ -60,7 +52,7 @@ static int		there_is_an_operator(const char *s, unsigned int *i, unsigned int *j
 	while (s[++(*i)])
 	{
 		quotes_onoff(&q, s[*i]);
-		if (q == 0 && ft_index(CMP_SYMBOLS, s[*i]) != -1)
+		if (q == 0 && ft_index(CMP_SYMBOLS, s[*i]) != -1 && (*i == 0 || s[*i - 1] != '\\'))
 		{
 			x = -1;
 			while (g_symbols_strs[++x])

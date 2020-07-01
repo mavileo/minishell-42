@@ -92,4 +92,8 @@ t_token		*add_redirection_token(t_list **token_lst, t_list **e, t_token **curren
 t_token		*add_pipe_token(t_list **token_lst, t_list **e, t_token **current);
 t_token		*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current);
 
+char    *escape_expand(const char *str);
+
+void        quotes_onoff(char *q, char c);
+
 #endif
