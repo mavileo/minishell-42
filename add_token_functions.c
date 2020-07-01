@@ -26,16 +26,10 @@ t_token	*add_command_token(t_list **token_lst, t_list **e, t_token **current)
 		free(str);
 		return (*current);
 	}
-	if ((new_t = ft_token_new(COMMAND, ft_tabpush(NULL, (*e)->content))) == NULL)
-	{
-		printf("Malloc failed during token list creation\n");
-		return (NULL);
-	}
-	if ((new_e = ft_lstnew(new_t)) == NULL)
-	{
-		printf("Malloc failed during token list creation\n");
-		return (NULL);
-	}
+	str = escape_expand((*e)->content);
+	new_t = ft_token_new(COMMAND, ft_tabpush(NULL, str));
+	free(str);
+	new_e = ft_lstnew(new_t);
 	ft_lstadd_back(token_lst, new_e);
 	*current = new_t;
 	return (new_t);
