@@ -2,6 +2,8 @@
 
 #include "minishell.h"
 
+t_env *env = NULL;
+
 int		main(int ac, char *av[], char *envp[])
 {
 	(void)ac;
@@ -12,6 +14,7 @@ int		main(int ac, char *av[], char *envp[])
 //	char a = 1;
 
 	// allouer environment hash table
+	init_env();
 
 //	while (a)
 //	{
@@ -27,5 +30,6 @@ int		main(int ac, char *av[], char *envp[])
 //	}
 	free(input);
 	// free environment
+	free_all_env();
 	return (0);
 }
