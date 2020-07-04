@@ -85,6 +85,7 @@ int     		ft_tabindex(const char *tab[], const char *s);
 char    		**ft_tabpush(char *tab[], const char *s);
 t_list  *ft_lstfirst(t_list *lst);
 char	*ft_strjoin_free(char *s1, char *s2, int c);
+void    *ft_reassign(void *oldptr, void *newptr);
 
 int				get_next_line(int fd, char **line);
 

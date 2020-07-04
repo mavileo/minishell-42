@@ -83,7 +83,7 @@ char	*get_env_value(char *name)
 	t_env *tmp;
 
 	tmp = env;
-	if (!name || !tmp)
+	if (!name || !tmp || !name[0])
 		return (NULL);
 	while (tmp)
 	{

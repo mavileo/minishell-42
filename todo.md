@@ -4,14 +4,7 @@
 - recup input					X
 - transfo tokens				X
 	ATTENTION: add_redirection_token: vérifier pour les syntax error avec operator
-- interpréter (expand, escape)
-	PRESQUE OK: reste:
-		
-		! special expand '$?' !
-		vérifier que les tableaux d'arguments se retrouvent pas
-		avec des 'null' en plein milieu
-		si on envoie une chaine vide à get_env_value() elle retourne
-		automatique 'user42', à changer
+- interpréter (expand, escape)	X
 
 - remplacer printf par ftprintf
 

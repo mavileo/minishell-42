@@ -12,7 +12,12 @@ static unsigned int	expand(char **old, unsigned int i)
 	j = 1;
 	while (ft_isalnum((int)(*old)[i + j]))
 		j++;
-	varname = ft_substr(*old, i + 1, j - 1);
+	if (j == 1 && ft_index("?'\"", (*old)[i + j]) == -1)
+		return (i + 1);
+	if ((*old)[i + 1] == '?' && ++j)
+		varname = ft_strdup("PIPESTATUS");
+	else
+		varname = ft_substr(*old, i + 1, j - 1);
 	if (!(varvalue = get_env_value(varname)))
 	{
 		ft_memmove(&(*old)[i], &(*old)[i + j], ft_strlen(&(*old)[i + j]) + 1);
@@ -20,11 +25,9 @@ static unsigned int	expand(char **old, unsigned int i)
 		return (i);
 	}
 	free(varname);
-	start = ft_substr(*old, 0, i);
-	start = ft_strjoin_free(start, varvalue, 1);
+	start = ft_strjoin_free(ft_substr(*old, 0, i), varvalue, 1);
 	start = ft_strjoin_free(start, &(*old)[i + j], 1);
-	free(*old);
-	*old = start;
+	*old = ft_reassign(*old, start);
 	return (i + ft_strlen(varvalue) - 1);
 }
 

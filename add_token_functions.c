@@ -107,7 +107,7 @@ t_token	*add_redirection_token(t_list **token_lst, t_list **e, t_token **current
 	char *str;
 
 	token = NULL;
-	if ((*e)->next == NULL)
+	if ((*e)->next == NULL || ft_tabindex(g_symbols_strs, (*e)->next->content) + 1 != COMMAND)
 		printf("syntax error near token %s\n", (char*)(*e)->content);
 	else
 	{
