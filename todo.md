@@ -3,10 +3,9 @@
 - afficher prompt				X
 - recup input					X
 - transfo tokens				X
-	ATTENTION: add_redirection_token: vérifier pour les syntax error avec operator
 - interpréter (expand, escape)	X
 
-- remplacer printf par ftprintf
+- !!!! remplacer printf par ftprintf
 
 
 questions :
