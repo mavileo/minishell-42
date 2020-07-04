@@ -2,14 +2,6 @@
 
 #include "minishell.h"
 
-static void		quotes_onoff(char *q, char c)
-{
-	if ((c == 39 || c == '"') && *q == 0)
-		*q = c;
-	else if ((c == 39 && *q == 39) || (c == '"' && *q == '"'))
-		*q = 0;
-}
-
 static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux quotes
 {
 	char q;
@@ -41,7 +33,7 @@ static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux 
 	return (l);
 }
 
-static const char *g_symbols_strs[6] = {
+const char *g_symbols_strs[6] = {
 	">>",
 	">",
 	"<",
@@ -60,7 +52,7 @@ static int		there_is_an_operator(const char *s, unsigned int *i, unsigned int *j
 	while (s[++(*i)])
 	{
 		quotes_onoff(&q, s[*i]);
-		if (q == 0 && ft_index(CMP_SYMBOLS, s[*i]) != -1)
+		if (q == 0 && ft_index(CMP_SYMBOLS, s[*i]) != -1 && (*i == 0 || s[*i - 1] != '\\'))
 		{
 			x = -1;
 			while (g_symbols_strs[++x])
@@ -106,12 +98,29 @@ static void	ft_split2(t_list **l) // cherche les operateurs et resplit
 	}
 }
 
-static t_list	*to_tokens(t_list **l)
+static	t_add_token_function	g_add_token[6] = {
+	add_command_token, add_redirection_token, add_redirection_token, add_redirection_token, add_pipe_token, add_semicolon_token
+};
+
+static t_list	*to_tokens(t_list **lst)
 {
-	// regarde tout les maillons, tant que c'est du word on concat en 2darray, si c'est un operateur on garde le maillon, ainsi de suite
-	// sauf redirection : premier word apres operateur redirection == argument de redirection à mettre dans son token et words suivant == arguments de la commande
-	*l = ft_lstnew(ft_token_new(COMMAND, NULL));
-	return (NULL);
+	t_list *t;
+	t_list *l;
+	t_token *current_cmd;
+	unsigned int type;
+
+	t = NULL;
+	l = *lst;
+	current_cmd = NULL;
+	while (l)
+	{
+		type = ft_tabindex(g_symbols_strs, l->content) + 1;
+		if (g_add_token[type](&t, &l, &current_cmd) == NULL)
+			l = ft_lstlast(l);
+		l = l->next;
+	}
+	ft_lstclear(lst, free);
+	return (t);
 }
 
 /*
@@ -148,7 +157,7 @@ t_token     *input_to_token_list(char *input, void *env)
 	ft_split2(&l);
 	ft_lstprint(l, (void*)ft_putstr);
 
-	to_tokens(&l);
+	l = to_tokens(&l);
 	ft_print_token_list(l);
 
 	ft_lstclear(&l, (void*)ft_token_free);

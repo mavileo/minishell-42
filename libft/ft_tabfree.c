@@ -13,7 +13,7 @@
 **	none
 */
 
-void	ft_tabfree(void **tab)
+void	ft_tabfree(char **tab)
 {
 	int i;
 

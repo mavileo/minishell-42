@@ -18,16 +18,19 @@
 #include <dirent.h>
 
 #define BUFFER_SIZE 4096
+#define TRUE 1
+#define FALSE 0
 #define	CMP_SYMBOLS "<>|;"
 #define	SYMBOL_MAX_LEN 2
 #define	SYMBOL_TABLE_FILE_LOCATION "input_to_token_list.c"
+#define	REDIRECTIONS(type) type > 0 && type < 4 ? TRUE : FALSE
 
 enum	e_token_type
 {
 	COMMAND,
-	REDIR1,
-	REDIR2,
-	REDIR3,
+	R_APPEND,
+	R_TRUNC,
+	R_IN,
 	PIPE,
 	SEMICOLON,
 	AND,
@@ -77,5 +80,20 @@ int 	ft_exit(char **args);
 t_token		*ft_token_new(enum e_token_type type, char **args);
 void		ft_token_free(t_token *token);
 void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
+
+/* PARSING */
+
+extern const char	*g_symbols_strs[6];
+
+typedef	t_token	*(*t_add_token_function)(t_list **token_lst, t_list **e, t_token **current);
+
+t_token		*add_command_token(t_list **token_lst, t_list **e, t_token **current);
+t_token		*add_redirection_token(t_list **token_lst, t_list **e, t_token **current);
+t_token		*add_pipe_token(t_list **token_lst, t_list **e, t_token **current);
+t_token		*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current);
+
+char    *escape_expand(const char *str);
+
+void        quotes_onoff(char *q, char c);
 
 #endif

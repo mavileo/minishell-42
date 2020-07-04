@@ -2,8 +2,9 @@
 
 - afficher prompt				X
 - recup input					X
-- transfo tokens
-- interpréter (expand, escape)
+- transfo tokens				X
+	ATTENTION: add_redirection_token: vérifier pour les syntax error avec operator
+- interpréter (expand, escape)	X
 
 - remplacer printf par ftprintf
 
@@ -16,3 +17,4 @@ ls |> file.txt ? fichier vide
 ls |>> file.txt ? fichier vide
 ls <> file.txt ? output sur STDOUT file vide 
 ls >| file.txt ? fonctionne
+

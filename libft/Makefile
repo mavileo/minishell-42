@@ -26,7 +26,7 @@ SRCS = 	ft_memset.c \
 		ft_calloc.c \
 		ft_strdup.c \
 		ft_substr.c \
-		ft_strjoin.c \
+		ft_strjoin.c ft_strjoin_free.c ft_reassign.c \
 		ft_strtrim.c \
 		ft_split.c \
 		ft_itoa.c \
@@ -36,12 +36,12 @@ SRCS = 	ft_memset.c \
 		ft_lstnew.c ft_lstprint.c \
 		ft_lstadd_front.c ft_lstadd_back.c ft_lstinsert.c ft_lstremove.c \
 		ft_lstsize.c \
-		ft_lstlast.c \
+		ft_lstlast.c ft_lstfirst.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		ft_tabfree.c \
+		ft_tabfree.c ft_tabindex.c ft_tabpush.c \
 		get_next_line.c
 
 HEADER = libft.h
