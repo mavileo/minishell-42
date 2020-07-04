@@ -153,13 +153,8 @@ t_token     *input_to_token_list(char *input, void *env)
 	t_list	*l;
 
 	l = ft_split1(input);
-	ft_lstprint(l, (void*)ft_putstr);
 	ft_split2(&l);
-	ft_lstprint(l, (void*)ft_putstr);
-
 	l = to_tokens(&l);
-	ft_print_token_list(l);
-
 	ft_lstclear(&l, (void*)ft_token_free);
 	return (NULL);
 }
