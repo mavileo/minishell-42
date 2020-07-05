@@ -61,7 +61,7 @@ Retourne la valeur (sous forme de chaine de caractere) de la variable d'environn
 
        char	*replace_env_in_str(char *str, char *res, int i)
 Remplace les variables d'environnement par leurs valeur dans une chainee de caractere et retourne la chaine modifiee. Retourne la chaine originale si aucune variable d'environnement n'est trouvee allouee dynamiquement sur la heap.
-Exemple : Si $USER=user42, replace_env_in_str("$USER) = user42
+Exemple : Si $USER=user42, replace_env_in_str("$USER") = user42
 
        int		actualise_env(char *name, char *value)
 Si une variable d'environnement portant le nom passe en parametre est trouvee, sa valeur est remplacee par celle pasee en parametre.
