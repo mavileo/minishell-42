@@ -53,8 +53,8 @@ typedef struct		s_token
 extern t_env	*env;
 
 /* GENERAL */
-void		prompt(void);
-t_token		*input_to_token_list(char *input, void *env);
+void	prompt(void);
+t_token	*input_to_token_list(char *input, void *env);
 char	*ft_strjoin_free(char *s1, char *s2, int c);
 
 /* VARIABLES D'ENVIRONNEMENT */
@@ -66,6 +66,8 @@ int		actualise_env(char *name, char *value);
 char	*replace_env_in_str(char *str);
 void	*free_env(t_env *env);
 void	*free_all_env(void);
+int		check_path(char *path, int print);
+int		get_abs_value(char **args);
 
 /* BUILTINS */
 int		ft_echo(char **args);

@@ -6,13 +6,13 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:24:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/25 06:58:59 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:21:21 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print(char **args, int nl, int i)
+void	print_echo(char **args, int nl, int i)
 {
 	while (args[i])
 	{
@@ -47,6 +47,6 @@ int		ft_echo(char **args)
 		nl = 0;
 		i = 2;
 	}
-	print(args, nl, i);
+	print_echo(args, nl, i);
 	return (0);
 }

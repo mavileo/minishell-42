@@ -6,13 +6,13 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 01:41:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/29 07:49:56 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:07:17 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		check_path(char *path)
+int		check_path(char *path, int print)
 {
 	DIR* dir;
 
@@ -22,7 +22,8 @@ int		check_path(char *path)
 		closedir(dir);
 		return (0);
 	}
-	ft_putstr_fd("Invalid path\n", 1);
+	if (print)
+		ft_putstr_fd("Invalid path\n", 1);
 	return (1);
 }
 
@@ -34,7 +35,7 @@ char	*check_points(char *p, int i, int count)
 	if (p[i] == '.' && p[i - 1] == '/' && (p[i + 1] == '/' || !p[i + 1]))
 	{
 		p = ft_strjoin_free(ft_substr(p, 0, i - 1),
-		ft_substr(p, i+ 1, ft_strlen(p)), 3);		
+		ft_substr(p, i+ 1, ft_strlen(p)), 3);
 		free(tmp);
 	}
 	else if (p[i] == '.' && p[i - 1] == '/' && p[i + 1] &&
@@ -59,8 +60,8 @@ char	*get_absolute(char *s)
 	if (s[0] == '/')
 		return (ft_strdup(s));
 	else
-		return (ft_strjoin_free(ft_strjoin_free(get_env_value("PWD"), "/", 0), s, 1));
-
+		return (ft_strjoin_free(ft_strjoin_free(get_env_value("PWD"),
+		"/", 0), s, 1));
 }
 
 char	*get_path(char *s)
@@ -98,7 +99,7 @@ int 	ft_cd(char **args)
 	if (!args[1])
 		return (1);
 	path = get_path(args[1]);
-	if (check_path(path))
+	if (check_path(path, 1))
 	{
 		free(path);
 		return (1);

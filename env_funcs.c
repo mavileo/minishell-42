@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:04:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 07:24:06 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/06 21:48:36 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		add_env(char *name, char *value)
 	env = save;
 	return (0);
 }
-
+// 8 13 23
 int		init_env(void)
 {
 	char *buff;
@@ -57,6 +57,8 @@ int		init_env(void)
 	getcwd(buff, 500);
 	add_env("USER", "user42");
 	add_env("PWD", buff);
+	add_env("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
+	//add_env("PATH", "/Users/mavileo/.brew/bin:/Users/mavileo/.brew/bin:/Users/mavileo/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
 	add_env("PIPESTATUS", "0");
 	free(buff);
 	return (0);
