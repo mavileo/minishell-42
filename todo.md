@@ -1,12 +1,10 @@
 # TODO
 
-|            A FAIRE                   |           EN COURS          | A TESTER      | FINI |
-| ------------------------------------ | --------------------------- | ------------- | ---- |
-| replacer printf par ft_printf        | conception: execution liste | builtins      |      |
-| normer                               | struct : file descriptors   | expands       |      |
-| $PATH dans init_env()                |                             | syntax errors |      |
-| get_path()                           |                             | escape        |      |
-| fonction container                   |                             |               |      |
+|            A FAIRE                   |           EN COURS          | A TESTER      |        FINI          |
+| ------------------------------------ | --------------------------- | ------------- | -------------------- |
+| replacer printf par ft_printf        | conception: execution liste | builtins      | PATH dans init_env() |
+| normer                               | struct : file descriptors   | expand/escape | fcn: absolute path   |
+|                                      | fonction container          | syntax errors |      |
 | def règles write/read pr processus   |                             |               |      |
 | get_next_token()                     |                             |               |      |
 | exec COMMAND                         |                             |               |      |
