@@ -119,6 +119,7 @@ t_token	*add_redirection_token(t_list **token_lst, t_list **e, t_token **current
 		type = ft_tabindex(g_symbols_strs, (*e)->content) + 1;
 		str = escape_expand((*e)->next->content);
 		token = ft_token_new(type, ft_tabpush(NULL, str));
+		free(str);
 		ft_lstadd_back(token_lst, ft_lstnew(token));
 		*e = (*e)->next;
 	}

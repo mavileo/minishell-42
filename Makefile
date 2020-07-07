@@ -13,10 +13,10 @@ MINISHFCT = prompt.c		\
 			add_token_functions.c \
 			input_to_token_list.c \
 			escape_expand.c parsing_utils.c \
-			env_funcs.c	env_funcs2.c
+			env_funcs.c	env_funcs2.c \
+			path.c ft_cd.c
 #			ft_echo.c		\ 
 #			ft_pwd.c		\
-#			ft_cd.c			\
 #			ft_export.c		\
 #			ft_env.c		\
 
@@ -31,9 +31,6 @@ all: $(NAME)
 
 $(NAME) : libft minishlib
 	gcc -g $(FLAGS) $(MAIN)  $(LIBS) -o $(NAME)
-
-parsing: libft minishlib
-	gcc -g $(FLAGS) main_parsing.c  $(LIBS) -o $(NAME)
 
 libft:
 	cd libft/ && make -s && make -s clean
@@ -54,3 +51,10 @@ fclean: clean
 		cd libft/ && make -s fclean
 
 re: fclean all
+
+parsing: libft minishlib
+	gcc -g $(FLAGS) main_parsing.c  $(LIBS) -o $(NAME)
+
+tests: libft minishlib
+	gcc -g $(FLAGS) tmp.c  $(LIBS) -o $(NAME)
+

@@ -48,7 +48,7 @@ char	*check_points(char *p, int i, int count)
 		while (count > 0 && p[count] != '/')
 			count--;
 		p = ft_strjoin_free(count > 0 ? ft_substr(p, 0, count) :
-		ft_strdup(""), i + 2 >= ft_strlen(p) ? ft_strdup("") :
+		ft_strdup(""), i + 2 >= (int)ft_strlen(p) ? ft_strdup("") :
 		ft_substr(p, i + 2, ft_strlen(p)), 3);
 		free(tmp);
 	}
@@ -74,6 +74,7 @@ char	*get_path(char *s)
 	i = 0;
 	path = get_absolute(s);
 	tmp = path;
+	count = 0;
 	while (path[i])
 	{
 		if ((path = check_points(path, i, count)) != tmp && !(i = 0))
@@ -94,7 +95,6 @@ char	*get_path(char *s)
 int 	ft_cd(char **args)
 {
 	char *path;
-	char *pwd;
 
 	if (!args[1])
 		return (1);

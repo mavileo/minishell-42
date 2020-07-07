@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		get_nb_paths(char *path)
+static int		get_nb_paths(char *path)
 {
 	char	*tmp;
 	int		i;
@@ -37,7 +37,7 @@ int		get_nb_paths(char *path)
 	return (nb_path);
 }
 
-char	**get_path_tab(char *path)
+static char	**get_path_tab(char *path)
 {
 	char	*tmp;
 	int		i;
@@ -66,7 +66,7 @@ char	**get_path_tab(char *path)
 	return (tab);
 }
 
-char	*get_exe_path(char **paths, char *name)
+static char	*get_exe_path(char **paths, char *name)
 {
 	struct	stat sb;
 	char	*file;
@@ -85,7 +85,10 @@ char	*get_exe_path(char **paths, char *name)
 		if (stat(file, &sb) == 0 && sb.st_mode & S_IXUSR)
 			return (file);
 		else
+		{
+			free(file);
 			i++;
+		}
 	}
 	return (NULL);
 }
@@ -97,6 +100,7 @@ int		get_abs_value(char **args)
 	if (!args[0] || !*args[0])
 		return (1);
 	paths = get_path_tab(get_env_value("PATH"));
-	args[0] = get_exe_path(paths, args[0]);
+	args[0] = ft_reassign(args[0], get_exe_path(paths, args[0])); // JUST MODIFIED
+	ft_tabfree(paths); // JUST ADDED
 	return (args[0] == NULL);
 }

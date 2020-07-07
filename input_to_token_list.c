@@ -147,7 +147,7 @@ static t_list	*to_tokens(t_list **lst)
 **
 */
 
-t_token     *input_to_token_list(char *input, void *env)
+t_list     *input_to_token_list(char *input, void *env)
 {
 	(void)env;
 	t_list	*l;
@@ -155,6 +155,5 @@ t_token     *input_to_token_list(char *input, void *env)
 	l = ft_split1(input);
 	ft_split2(&l);
 	l = to_tokens(&l);
-	ft_lstclear(&l, (void*)ft_token_free);
-	return (NULL);
+	return (l);
 }
