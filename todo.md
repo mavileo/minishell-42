@@ -4,9 +4,8 @@
 | ------------------------------------ | --------------------------- | ------------- | -------------------- |
 | replacer printf par ft_printf        | conception: execution liste | builtins      | PATH dans init_env() |
 | normer                               | struct : file descriptors   | expand/escape | fcn: absolute path   |
-|                                      | fonction container          | syntax errors |      |
+|                                      | fonction container          | syntax errors | fcn: get_next_token  |
 | def règles write/read pr processus   |                             |               |      |
-| get_next_token()                     |                             |               |      |
 | exec COMMAND                         |                             |               |      |
 | exec REDIRECTION                     |                             |               |      |
 | exec PIPE                            |                             |               |      |
