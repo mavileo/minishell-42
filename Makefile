@@ -14,7 +14,9 @@ MINISHFCT = prompt.c		\
 			input_to_token_list.c \
 			escape_expand.c parsing_utils.c \
 			env_funcs.c	env_funcs2.c \
-			path.c ft_cd.c
+			path.c ft_cd.c \
+			get_next_token.c
+			# command_container.c \
 #			ft_echo.c		\ 
 #			ft_pwd.c		\
 #			ft_export.c		\

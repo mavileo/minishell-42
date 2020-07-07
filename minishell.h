@@ -56,6 +56,8 @@ extern t_env	*env;
 void	prompt(void);
 t_list	*input_to_token_list(char *input, void *env);
 int     get_abs_value(char **args);
+int		command_container(t_list *tokens_list);
+t_list  *get_next_token(t_list *tokens_list);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int		add_env(char *name, char *value);
