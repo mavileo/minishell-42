@@ -50,10 +50,33 @@ typedef struct		s_token
 	char **args;
 }					t_token;
 
+/* rw = read/write, en attente d'un meilleur nom */
+typedef struct		s_rw
+{
+	int fd1r;	
+	int fd1w;	
+	int fd2r;	
+	int fd2w;	
+}					t_rw;
+
+/* VERSION avec un typedef sur int t_pipe[2]
+#define read  0
+#define write 1
+
+typedef	int t_pipe[2];
+typedef struct		s_rw
+{
+	t_pipe p1;
+	t_pipe p2;
+}					t_rw;
+*/
+
 extern t_env	*env;
 extern int		(*g_builtins[]) ();
 extern int		(*g_exec_token[]) ();
 extern char		*builtins[];
+
+typedef	int	(*t_exec_token_function)(t_list *token, t_rw *rw);
 
 /* GENERAL */
 void	prompt(void);

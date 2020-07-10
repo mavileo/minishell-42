@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:17:16 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/10 21:39:57 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/10 21:55:41 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 // todo: typedef sur ce type de pointeurs
 // tableau de pointeurs sur fonctions qui contient toutes les fonctions associé
-// à chaques tokens
+// à chaques tokens : mettre les bons noms
+
+static t_exec_token_function 	g_exec_token[10] = {
+	//commandenormale, //pipes, //etc
+}
 
 int		command_container(t_list *tokens_list)
 {
