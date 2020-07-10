@@ -12,7 +12,8 @@
 | exec SEMICOLON                       |                             |               |      |
 | conception: signaux                  |                             |               |      |
 | bonus: ET et OU                      |                             |               |      |
-
+| initialiser env avec envp            |                             |               |      |
+| checker builtins avant appel execve  |                             |               |      |
 
 
 # execution liste : idée 1

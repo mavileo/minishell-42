@@ -147,9 +147,8 @@ static t_list	*to_tokens(t_list **lst)
 **
 */
 
-t_list     *input_to_token_list(char *input, void *env)
+t_list     *input_to_token_list(char *input)
 {
-	(void)env;
 	t_list	*l;
 
 	l = ft_split1(input);

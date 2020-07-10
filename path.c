@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 16:55:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/06 21:49:36 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/10 17:51:02 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,14 @@ static char	*get_exe_path(char **paths, char *name)
 int		get_abs_value(char **args)
 {
 	char 	**paths;
+	struct	stat sb;
 	
 	if (!args[0] || !*args[0])
 		return (1);
+	if (stat(args[0], &sb) == 0 && sb.st_mode & S_IXUSR)
+		return (0);
 	paths = get_path_tab(get_env_value("PATH"));
-	args[0] = ft_reassign(args[0], get_exe_path(paths, args[0])); // JUST MODIFIED
+	args[0] = ft_reassign(args[0], get_exe_path(paths, args[0]));
 	ft_tabfree(paths); // JUST ADDED
 	return (args[0] == NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:04:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/06 21:48:36 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/10 16:17:46 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,25 @@ int		add_env(char *name, char *value)
 	env = save;
 	return (0);
 }
-// 8 13 23
-int		init_env(void)
-{
-	char *buff;
 
-	if (!(buff = malloc(sizeof(char) * 501)))
-		return (1);
-	getcwd(buff, 500);
-	add_env("USER", "user42");
-	add_env("PWD", buff);
-	add_env("PATH", "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin");
-	//add_env("PATH", "/Users/mavileo/.brew/bin:/Users/mavileo/.brew/bin:/Users/mavileo/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
-	add_env("PIPESTATUS", "0");
-	free(buff);
+int		init_env(char *envp[])
+{
+	char	*value;
+	char	*name;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (envp[i])
+	{
+		j = 0;
+		while (envp[i][j] && envp[i][j] != '=')
+			j++;
+		name = ft_substr(envp[i], 0, j);
+		value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
+		add_env(name, value);
+		i++;
+	}
 	return (0);
 }
 

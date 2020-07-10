@@ -1,4 +1,4 @@
-// 42 HEADER
+/* // 42 HEADER
 
 #include "minishell.h"
 
@@ -27,3 +27,4 @@ int		main(int ac, char *av[], char *envp[])
 	free_all_env();
 	return (0);
 }
+ */

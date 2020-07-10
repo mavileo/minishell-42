@@ -51,17 +51,20 @@ typedef struct		s_token
 }					t_token;
 
 extern t_env	*env;
+extern int		(*g_builtins[]) ();
+extern int		(*g_exec_token[]) ();
+extern char		*builtins[];
 
 /* GENERAL */
 void	prompt(void);
-t_list	*input_to_token_list(char *input, void *env);
+t_list	*input_to_token_list(char *input);
 int     get_abs_value(char **args);
 int		command_container(t_list *tokens_list);
-t_list  *get_next_token(t_list *tokens_list);
+t_list *get_next_token(t_list *tokens_list);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int		add_env(char *name, char *value);
-int		init_env(void);
+int		init_env(char *envp[]);
 t_env	*get_env(char *name);
 char	*get_env_value(char *name);
 int		actualise_env(char *name, char *value);
@@ -70,6 +73,7 @@ void	*free_env(t_env *env);
 void	*free_all_env(void);
 int		check_path(char *path, int print);
 int		get_abs_value(char **args);
+char	**env_to_envp(void);
 
 /* BUILTINS */
 int		ft_echo(char **args);
@@ -86,18 +90,23 @@ void		ft_token_free(t_token *token);
 void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 
 /* PARSING */
-
 extern const char	*g_symbols_strs[6];
-
 typedef	t_token	*(*t_add_token_function)(t_list **token_lst, t_list **e, t_token **current);
-
 t_token		*add_command_token(t_list **token_lst, t_list **e, t_token **current);
 t_token		*add_redirection_token(t_list **token_lst, t_list **e, t_token **current);
 t_token		*add_pipe_token(t_list **token_lst, t_list **e, t_token **current);
 t_token		*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current);
-
-char    *escape_expand(const char *str);
-
+char		*escape_expand(const char *str);
 void        quotes_onoff(char *q, char c);
+
+/* EXECUTION */
+int			ft_command(t_list *token);
+/* int			ft_r_append(t_list *token);
+int			ft_r_trunc(t_list *token);
+int			ft_r_in(t_list *token);
+int			ft_pipe(t_list *token);
+int			ft_semicolon(t_list *token);
+int			ft_and(t_list *token);
+int			ft_or(t_list *token); */
 
 #endif
