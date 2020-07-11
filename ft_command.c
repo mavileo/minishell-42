@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-t_list	*get_commands_path(t_list *lst)
-{
-	t_list	*tmp;
-	int		ret;
-
-	tmp = lst;
-	while (tmp)
-	{
-		ret = ((t_token *)tmp->content)->type;
-		if (!ret)
-			get_abs_value(((t_token *)tmp->content)->args);
-		tmp = tmp->next;
-	}
-	return (lst);
-}
-
 char	**env_to_envp(void)
 {
 	char	**res;
@@ -67,7 +51,7 @@ int			ft_command(t_list *token)
 	{
 		if (!ft_strcmp(((t_token *)token->content)->args[0], builtins[i]))
 			return (g_builtins[i](((t_token *)token->content)->args));
-		i++;		
+		i++;
 	}
 	s = ft_strdup(((t_token *)token->content)->args[0]);
 	if (get_abs_value(((t_token *)token->content)->args))
@@ -80,4 +64,26 @@ int			ft_command(t_list *token)
 	free(s);
 	execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, env_to_envp());
 	return (2);
+}
+
+int		command_container(t_list *tokens_list)
+{
+	t_list *token;
+	int ret;
+	int status;
+	int pid;
+
+	token = get_next_token(tokens_list);
+	if (!(pid = fork()))
+		ret = g_exec_token[((t_token *)token->content)->type](token);
+	else
+		waitpid(pid, &status, 0);
+	if (ret != 2)
+	{
+		if (ret < 2)
+			return (ret);
+		else
+			return (1);
+	}
+	return (WEXITSTATUS(status));
 }
