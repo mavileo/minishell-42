@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:43:27 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 07:25:02 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/11 16:13:40 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_env	*init_actualise(char *name, char *value)
 
 	if (!(new = malloc(sizeof(t_env))))
 		return (new);
-	new->name = name;
-	new->value = value;
+	new->name = ft_strdup(name);
+	new->value = ft_strdup(value);
 	if (env && !ft_strncmp(env->name, name, ft_strlen(name)))
 	{
 		new->next = env->next;
@@ -91,7 +91,6 @@ int		actualise_env(char *name, char *value)
 {
 	t_env	*ret;
 	t_env	*new;
-//	int		actualise;
 
 	ret = env;
 	if (!(new = init_actualise(name, value)))

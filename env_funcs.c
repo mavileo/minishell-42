@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:04:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/10 16:17:46 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/11 17:25:05 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		init_env(char *envp[])
 		name = ft_substr(envp[i], 0, j);
 		value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]));
 		add_env(name, value);
+		free(name);
+		free(value);
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 01:41:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/06 17:07:17 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/11 17:20:15 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int 	ft_cd(char **args)
 		return (1);
 	}
 	actualise_env("PWD", path);
-	//actualiser le prompt
+	chdir((const char *)path);
+	free(path);
 	return (0);
 }
