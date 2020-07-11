@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 01:41:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/11 17:20:15 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/11 17:43:11 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,13 @@ int 	ft_cd(char **args)
 	char *path;
 
 	if (!args[1])
-		return (1);
+	{
+		path = replace_env_in_str("/home/$USER");
+		actualise_env("PWD", path);
+		chdir((const char *)path);
+		free(path);
+		return (0);
+	}
 	path = get_path(args[1]);
 	if (check_path(path, 1))
 	{
