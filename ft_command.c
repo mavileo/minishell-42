@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/11 17:27:27 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 02:31:01 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,18 @@ char	**env_to_envp(void)
 	return (res);
 }
 
-int			ft_command(t_list *token)
+void	free_envp(char **envp)
+{
+	int i;
+
+	i = 0;
+	while (envp[i])
+		free(envp[i++]);
+	free(envp);
+
+}
+
+void	exec_bin(t_list *token, char **envp)
 {
 	char	*s;
 
@@ -53,25 +64,25 @@ int			ft_command(t_list *token)
 		ft_putstr_fd(s, 1);
 		ft_putstr_fd(" : commande introuvable\n", 1);
 		free(s);
+		free_envp(envp);
+		free_all_env();
+		ft_lstclear(&token, &ft_token_free);
 		exit(127);
 	}
 	free(s);
-	execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, env_to_envp());
+	execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, envp);
+	free_all_env();
+	ft_lstclear(&token, &ft_token_free);
+	free_envp(envp);
 	exit(errno);
-	return (0);
 }
 
-int		command_container(t_list *tokens_list)
+int		check_builtins(t_list *token)
 {
-	t_list	*token;
-	char	*tmp;
-	int		ret;
-	int		status;
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	if (!(token = get_next_token(tokens_list)) || !token->content)
-		return (0);
 	while (builtins[i])
 	{
 		if (!ft_strcmp(((t_token *)token->content)->args[0], builtins[i]))
@@ -79,17 +90,35 @@ int		command_container(t_list *tokens_list)
 			i = (g_builtins[i](((t_token *)token->content)->args));
 			add_env("PIPESTATUS", (tmp = ft_itoa(i)));
 			free(tmp);
-			return (i);
+			return (1);
 		}
 		i++;
 	}
-	if (!(i = fork()))
-		ret = g_exec_token[((t_token *)token->content)->type](token);
-	else
-		waitpid(i, &status, 0);
-	add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
-	free(tmp);
-	if (ret == 2 || !ret)
+	return (0);
+}
+
+int		ft_command(t_list *token)
+{
+	char	*tmp;
+	int		ret;
+	int		status;
+	int		pid;
+	char	**envp;
+
+	envp = env_to_envp();
+	if (!token->content)
 		return (0);
-	return (1);
+	if (check_builtins(token))
+	{
+		free_envp(envp);
+		return (ft_atoi(get_env_value("PIPESTATUS")));
+	}
+	if (!(pid = fork()))
+		exec_bin(token, envp);
+	else
+		waitpid(pid, &status, 0);
+	add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
+	free_envp(envp);
+	free(tmp);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/10 21:47:49 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 02:19:41 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ int		main(int ac, char *av[], char *envp[])
 	char	*input;
 	t_list	*lst;
 	int		exit;
+	int		i;
+	t_list *token;
 
 	exit = 0;
 	init_env(envp);
+	// . ET .. GERER ERREUR INTROUVABLE
 	while (!exit)
 	{
 		prompt();
@@ -38,9 +41,10 @@ int		main(int ac, char *av[], char *envp[])
 		else
 		{
 			lst = input_to_token_list(input);
-			command_container(lst);
+			tokens_container(lst);
+			ft_lstclear(&lst, &ft_token_free);
 		}
 	}
-	// free all
+	free_all_env();
 	return (0);
 }

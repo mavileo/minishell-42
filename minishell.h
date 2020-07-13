@@ -82,7 +82,7 @@ typedef	int	(*t_exec_token_function)(t_list *token, t_rw *rw);
 void	prompt(void);
 t_list	*input_to_token_list(char *input);
 int     get_abs_value(char **args);
-int		command_container(t_list *tokens_list);
+int		tokens_container(t_list *tokens_list);
 t_list *get_next_token(t_list *tokens_list);
 
 /* VARIABLES D'ENVIRONNEMENT */
@@ -109,7 +109,7 @@ int 	ft_exit(char **args);
 
 /* TOKEN UTILS */
 t_token		*ft_token_new(enum e_token_type type, char **args);
-void		ft_token_free(t_token *token);
+void		ft_token_free(void *token);
 void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 
 /* PARSING */

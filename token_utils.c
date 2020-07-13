@@ -13,13 +13,16 @@ t_token	*ft_token_new(enum e_token_type type, char **args)
 	return (token);
 }
 
-void	ft_token_free(t_token *token)
+void	ft_token_free(void *token)
 {
-	if (token)
+	t_token *t;
+
+	t = (t_token *)token;
+	if (t)
 	{
-		ft_tabfree(token->args);
-		free(token);
-		token = NULL;
+		ft_tabfree(t->args);
+		free(t);
+		t = NULL;
 	}
 }
 
