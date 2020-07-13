@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 06:54:51 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 06:26:15 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:16:18 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int 	ft_env(char **args)
 {
 	t_env	*tmp;
 
+	(void)args;
 	tmp = env;
 	while (tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:20:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/29 08:06:39 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:18:15 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int 	ft_export(char **args)
 	int		i;
 	char	*name;
 	char	*value;
-	char	*tmp;
 
 	i = 0;
 	if (!args[1] || !ft_strrchr(args[1], (int)'='))

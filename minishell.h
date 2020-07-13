@@ -62,11 +62,12 @@ extern int		(*g_builtins[]) ();
 extern int		(*g_exec_token[]) ();
 extern char		*builtins[];
 
+
 /* GENERAL */
 void	prompt(void);
 t_list	*input_to_token_list(char *input);
 int     get_abs_value(char **args);
-int		tokens_container(t_list *tokens_list);
+int		tokens_container(t_list *tokens_list, t_fds *fds);
 t_list *get_next_token(t_list *tokens_list);
 
 /* VARIABLES D'ENVIRONNEMENT */
@@ -107,13 +108,13 @@ char		*escape_expand(const char *str);
 void        quotes_onoff(char *q, char c);
 
 /* EXECUTION */
-int			ft_command(t_list *token);
-/* int			ft_r_append(t_list *token);
-int			ft_r_trunc(t_list *token);
-int			ft_r_in(t_list *token);
-int			ft_pipe(t_list *token);
-int			ft_semicolon(t_list *token);
-int			ft_and(t_list *token);
-int			ft_or(t_list *token); */
+int			ft_command(t_list *token, t_fds *fds);
+/* int			ft_r_append(t_list *token, t_fds *fds);
+int			ft_r_trunc(t_list *token, t_fds *fds);
+int			ft_r_in(t_list *token, t_fds *fds);
+int			ft_pipe(t_list *token, t_fds *fds);
+int			ft_semicolon(t_list *token, t_fds *fds);
+int			ft_and(t_list *token, t_fds *fds);
+int			ft_or(t_list *token, t_fds *fds); */
 
 #endif

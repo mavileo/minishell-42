@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 18:51:00 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/25 06:58:44 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:16:57 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int 	ft_pwd(char **args)
 {
 	char *path;
 
+	(void)args;
 	path = get_env_value("PWD");
 	if (path == NULL)
 		return (1);
