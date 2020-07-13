@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 02:31:01 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 02:58:19 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ int		check_builtins(t_list *token)
 	char	*tmp;
 
 	i = 0;
+	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
+		!ft_strcmp(((t_token *)token->content)->args[0], "."))
+	{
+		ft_putstr_fd(((t_token *)token->content)->args[0], 1);
+		ft_putstr_fd(" : commande introuvable\n", 1);
+		add_env("PIPESTATUS", (tmp = ft_itoa(127)));
+		return (127);
+	}
 	while (builtins[i])
 	{
 		if (!ft_strcmp(((t_token *)token->content)->args[0], builtins[i]))

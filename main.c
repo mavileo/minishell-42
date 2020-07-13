@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 02:19:41 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 12:05:31 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		main(int ac, char *av[], char *envp[])
 
 	exit = 0;
 	init_env(envp);
-	// . ET .. GERER ERREUR INTROUVABLE
 	while (!exit)
 	{
 		prompt();

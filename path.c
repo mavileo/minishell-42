@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 16:55:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/10 17:51:02 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/13 02:54:46 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ int		get_abs_value(char **args)
 		return (0);
 	paths = get_path_tab(get_env_value("PATH"));
 	args[0] = ft_reassign(args[0], get_exe_path(paths, args[0]));
-	ft_tabfree(paths); // JUST ADDED
+	ft_tabfree(paths);
 	return (args[0] == NULL);
 }
