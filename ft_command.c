@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/15 02:22:27 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/15 17:04:00 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,9 @@ int		ft_command(t_list *token, t_fds *fds)
 	if (check_builtins(token))
 	{
 		free_envp(envp);
-		return (ft_atoi(get_env_value("PIPESTATUS")));
+		exit(ft_atoi(get_env_value("PIPESTATUS")));
 	}
-	if (!(pid = fork()))
-		exec_bin(token, envp);
-	else
-		waitpid(pid, &status, 0);
+	exec_bin(token, envp);
 	add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 	free_envp(envp);
 	free(tmp);
