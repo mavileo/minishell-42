@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 12:20:32 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/14 23:49:45 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,8 @@ t_env	*env = NULL;
 								&ft_semicolon, &ft_and, &ft_or};  */
 int		(*g_builtins[]) () = {&ft_echo, &ft_pwd, &ft_cd, &ft_export,
 								&ft_unset, &ft_env, &ft_exit};
-int		(*g_exec_token[]) () = {&ft_command};
+int		(*g_exec_token[]) () = {&ft_command, &ft_pipe};
 char	*builtins[] = {"echo", "pwd", "cd", "export", "unset", "env", "exit", NULL};
-
-t_fds	*init_fds(t_fds *fds)
-{
-	if (!(fds = malloc(sizeof(t_fds))))
-		return (NULL);
-	fds->prev[0] = 0;
-	fds->prev[1] = 1;
-	fds->actual[0] = 0;
-	fds->actual[1] = 1;
-	return (fds);
-}
 
 int		main(int ac, char *av[], char *envp[])
 {
@@ -38,7 +27,6 @@ int		main(int ac, char *av[], char *envp[])
 	t_list	*lst;
 	//int		i;
 	//t_list *token;
-	t_fds	*fds;
 
 	(void)ac;
 	(void)av;
@@ -51,9 +39,8 @@ int		main(int ac, char *av[], char *envp[])
 			break;
 		else
 		{
-			fds = init_fds(fds);
 			lst = input_to_token_list(input);
-			tokens_container(lst, fds);
+			tokens_container(lst);
 			ft_lstclear(&lst, &ft_token_free);
 		}
 	}
