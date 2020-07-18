@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 01:34:55 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/18 02:45:06 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 17:40:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		tokens_container(t_list *tokens_list)
 	int		status;
 
 	fds = init_fds();
-	if (!(token = get_next_token(tokens_list)))
+	if (!(token = get_first_token(tokens_list)))
 		return (0);
 	if (!(fork()))
 		g_exec_token[((t_token *)token->content)->type](token, fds);
