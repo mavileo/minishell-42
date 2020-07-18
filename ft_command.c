@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/18 05:14:20 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 13:07:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ int		check_builtins(t_list *token)
 int		ft_command(t_list *token, t_fds *fds)
 {
 	char	*tmp;
-	int		status;
-	int		pid;
+//	int		status;
+//	int		pid;
 	char	**envp;
 
 	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
@@ -113,7 +113,7 @@ int		ft_command(t_list *token, t_fds *fds)
 		exit(127);
 	}
 	envp = env_to_envp();
-	status = 0;
+//	status = 0;
 	(void)fds;
 	if (!token->content)
 		return (0);

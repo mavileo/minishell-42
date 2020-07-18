@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/18 05:01:00 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 13:09:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		exec_command(t_list *token, t_fds *fds, int status)
 {
+	(void)status;
 	if (!fork())
 	{
 		close(fds->pipe[0]);
@@ -40,8 +41,8 @@ int		exec_command(t_list *token, t_fds *fds, int status)
 int		ft_pipe(t_list *token, t_fds *fds)
 {
 	static int	count = 0;
-	int			status;
-	int			pid;
+	int			status = 0;
+//	int			pid;
 
 	if (!count)
 		token = token->prev;
