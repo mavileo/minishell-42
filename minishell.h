@@ -28,6 +28,9 @@
 enum	e_token_type
 {
 	COMMAND = 0,
+	R_APPEND,
+	R_TRUNC,
+	R_INPUT,
 	PIPE,
 	SEMICOLON,
 };
@@ -35,9 +38,6 @@ enum	e_token_type
 enum	e_token_type
 {
 	COMMAND,
-	R_APPEND,
-	R_TRUNC,
-	R_IN,
 	PIPE, 
 	SEMICOLON,
 	AND,
@@ -76,6 +76,7 @@ void		prompt(void);
 t_list		*input_to_token_list(char *input);
 int			get_abs_value(char **args);
 t_list		*get_next_token(t_list *tokens_list);
+t_list		*get_first_token(t_list *tokens_list);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int			add_env(char *name, char *value);
@@ -123,7 +124,7 @@ int			ft_command(t_list *token, t_fds *fds);
 int			ft_pipe(t_list *token, t_fds *fds);
 int			ft_r_append(t_list *token, t_fds *fds);
 int			ft_r_trunc(t_list *token, t_fds *fds);
-int			ft_r_in(t_list *token, t_fds *fds);
+int			ft_r_input(t_list *token, t_fds *fds);
 /*
 int			ft_semicolon(t_list *token, t_fds *fds);
 int			ft_and(t_list *token, t_fds *fds);
