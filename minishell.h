@@ -27,7 +27,7 @@
 
 enum	e_token_type
 {
-	COMMAND,
+	COMMAND = 0,
 	PIPE,
 	SEMICOLON,
 };
@@ -38,7 +38,7 @@ enum	e_token_type
 	R_APPEND,
 	R_TRUNC,
 	R_IN,
-	PIPE,
+	PIPE, 
 	SEMICOLON,
 	AND,
 	OR
@@ -60,8 +60,9 @@ typedef struct		s_token
 typedef	int t_pipe[2];
 typedef struct		s_fds
 {
-	t_pipe prev;
-	t_pipe actual;
+	int		save_stdin;
+	int		save_stdout;
+	t_pipe	pipe;
 }					t_fds;
 
 extern t_env	*env;

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 01:34:55 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/15 17:04:48 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 02:45:06 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,8 @@ int		tokens_container(t_list *tokens_list)
 		g_exec_token[((t_token *)token->content)->type](token, fds);
 	else
 		wait(&status);
+	close(fds->save_stdin);
+	close(fds->save_stdout);
+	free(fds);
 	return (0);
 }

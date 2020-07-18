@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 19:41:54 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/15 00:32:21 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 00:24:19 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_fds	*init_fds(void)
 
 	if (!(fds = malloc(sizeof(t_fds))))
 		return (NULL);
- 	fds->prev[0] = 0;
-	fds->prev[1] = 1;
-	fds->actual[0] = 0;
-	fds->actual[1] = 1;
+	fds->save_stdin = dup(0);
+	fds->save_stdout = dup(1);
+	fds->pipe[0] = 0;
+	fds->pipe[1] = 1;
 	return (fds);
 }
