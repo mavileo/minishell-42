@@ -121,9 +121,10 @@ t_fds		*init_fds(void);
 /* EXECUTION */
 int			ft_command(t_list *token, t_fds *fds);
 int			ft_pipe(t_list *token, t_fds *fds);
-/* int			ft_r_append(t_list *token, t_fds *fds);
+int			ft_r_append(t_list *token, t_fds *fds);
 int			ft_r_trunc(t_list *token, t_fds *fds);
 int			ft_r_in(t_list *token, t_fds *fds);
+/*
 int			ft_semicolon(t_list *token, t_fds *fds);
 int			ft_and(t_list *token, t_fds *fds);
 int			ft_or(t_list *token, t_fds *fds); */

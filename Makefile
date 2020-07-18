@@ -21,7 +21,7 @@ MINISHFCT = prompt.c \
 		ft_pwd.c \
 		ft_export.c ft_unset.c \
 		ft_env.c ft_exit.c \
-		ft_command.c ft_pipe.c fds.c
+		ft_command.c ft_pipe.c fds.c ft_redirections.c
 
 ALL_SRCS = $(MINISHFCT) # $(addprefix builtins/,$(BUILTINS))
 
