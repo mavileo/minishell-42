@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/18 02:44:33 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 02:58:45 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		ft_pipe(t_list *token, t_fds *fds)
 			}
 			else
 			{
-				wait(&status);
 				close(fds->pipe[1]);
 				if (dup2(fds->save_stdout, 1) == -1)
 					return (1);
