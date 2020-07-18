@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/15 17:04:00 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/18 05:14:20 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,6 @@ int		check_builtins(t_list *token)
 	char	*tmp;
 
 	i = 0;
-	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
-		!ft_strcmp(((t_token *)token->content)->args[0], "."))
-	{
-		ft_putstr_fd(((t_token *)token->content)->args[0], 1);
-		ft_putstr_fd(" : commande introuvable\n", 1);
-		add_env("PIPESTATUS", (tmp = ft_itoa(127)));
-		return (127);
-	}
 	while (builtins[i])
 	{
 		if (!ft_strcmp(((t_token *)token->content)->args[0], builtins[i]))
@@ -98,7 +90,7 @@ int		check_builtins(t_list *token)
 			i = (g_builtins[i](((t_token *)token->content)->args));
 			add_env("PIPESTATUS", (tmp = ft_itoa(i)));
 			free(tmp);
-			return (1);
+			exit(0);
 		}
 		i++;
 	}
@@ -112,6 +104,14 @@ int		ft_command(t_list *token, t_fds *fds)
 	int		pid;
 	char	**envp;
 
+	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
+		!ft_strcmp(((t_token *)token->content)->args[0], "."))
+	{
+		ft_putstr_fd(((t_token *)token->content)->args[0], 1);
+		ft_putstr_fd(" : commande introuvable\n", 1);
+		add_env("PIPESTATUS", (tmp = ft_itoa(127)));
+		exit(127);
+	}
 	envp = env_to_envp();
 	status = 0;
 	(void)fds;
@@ -123,8 +123,5 @@ int		ft_command(t_list *token, t_fds *fds)
 		exit(ft_atoi(get_env_value("PIPESTATUS")));
 	}
 	exec_bin(token, envp);
-	add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
-	free_envp(envp);
-	free(tmp);
 	return (0);
 }
