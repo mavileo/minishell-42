@@ -31,6 +31,8 @@ int		main(int ac, char *av[], char *envp[])
 	(void)ac;
 	(void)av;
 	init_env(envp);
+	signal(SIGINT, handle_ctrl_c);
+	signal(SIGQUIT, handle_ctrl_bs);
 	while (1)
 	{
 		prompt();

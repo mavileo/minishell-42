@@ -16,6 +16,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <signal.h>
 
 #define BUFFER_SIZE 4096
 #define TRUE 1
@@ -70,6 +71,9 @@ extern int		(*g_builtins[]) ();
 extern int		(*g_exec_token[]) ();
 extern char		*builtins[];
 
+/* SIGNAUX */
+void    handle_ctrl_c(int i);
+void    handle_ctrl_bs(int i);
 
 /* GENERAL */
 void		prompt(void);
