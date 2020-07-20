@@ -72,9 +72,7 @@ int		exec_bin(t_list *token, char **envp)
 	free(s);
 	if (!(fork()))
 	{
-		
 		execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, envp);
-		free_envp(envp);
 		exit(errno);
 	}
 	free_envp(envp);
@@ -103,7 +101,6 @@ int		check_builtins(t_list *token)
 
 int		ft_command(t_list *token, t_fds *fds)
 {
-	char	*tmp;
 //	int		status;
 //	int		pid;
 	char	**envp;
@@ -114,8 +111,7 @@ int		ft_command(t_list *token, t_fds *fds)
 	{
 		ft_putstr_fd(((t_token *)token->content)->args[0], 1);
 		ft_putstr_fd(" : commande introuvable\n", 1);
-		add_env("PIPESTATUS", (tmp = ft_itoa(127)));
-		free(tmp);
+		add_env("PIPESTATUS", "127");
 		return (0);
 	}
 	envp = env_to_envp();

@@ -47,18 +47,19 @@ t_token	*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current)
 	(void)e;
 	t_list *new;
 	t_token *token;
-	t_token	*previous_token;
+	t_token	*last_token;
 
 	*current = NULL;
-	token = ft_token_new(SEMICOLON, NULL);
-	new = ft_lstnew(token);
-	ft_lstadd_back(token_lst, new);
-	previous_token = new->prev ? new->prev->content : NULL;
-	if (previous_token == NULL || previous_token->type != COMMAND)
+	new = ft_lstlast(*token_lst);
+	last_token = new ? new->content : NULL;
+	if (last_token == NULL || last_token->type > R_INPUT)
 	{
 		printf("syntax error near token ';'\n");
 		return (NULL);
 	}
+	token = ft_token_new(SEMICOLON, NULL);
+	new = ft_lstnew(token);
+	ft_lstadd_back(token_lst, new);
 	return (token);
 }
 
@@ -74,18 +75,19 @@ t_token	*add_pipe_token(t_list **token_lst, t_list **e, t_token **current)
 {
 	t_list *new;
 	t_token *token;
-	t_token	*previous_token;
+	t_token	*last_token;
 
 	*current = NULL;
-	token = ft_token_new(PIPE, NULL);
-	new = ft_lstnew(token);
-	ft_lstadd_back(token_lst, new);
-	previous_token = new->prev ? new->prev->content : NULL;
-	if (previous_token == NULL || previous_token->type != COMMAND || (*e)->next == NULL)
+	new = ft_lstlast(*token_lst);
+	last_token = new ? new->content : NULL;
+	if (last_token == NULL || last_token->type > R_INPUT || (*e)->next == NULL)
 	{
 		printf("syntax error near token '|'\n");
 		return (NULL);
 	}
+	token = ft_token_new(PIPE, NULL);
+	new = ft_lstnew(token);
+	ft_lstadd_back(token_lst, new);
 	return (token);
 }
 

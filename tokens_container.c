@@ -23,6 +23,7 @@ int		tokens_container(t_list *tokens_list)
 	if (!(token = get_first_token(tokens_list)))
 		return (0);
 	g_exec_token[((t_token *)token->content)->type](token, fds);
+	status = 0;
 	wait(&status);
 	add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 	free(tmp);
