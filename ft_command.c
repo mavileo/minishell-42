@@ -101,6 +101,7 @@ int		check_builtins(t_list *token)
 	return (0);
 }
 
+
 int		ft_command(t_list *token, t_fds *fds)
 {
 	char	*tmp;
@@ -130,3 +131,24 @@ int		ft_command(t_list *token, t_fds *fds)
 	}
 	return (exec_bin(token, envp));
 }
+
+/* VERSION pour tester les signaux en attendant la nouvelle fonction
+int		ft_command(t_list *token, t_fds *fds)
+{
+	t_token *t;
+	char	**envp;
+	int pid;
+	(void)fds;
+
+	t = token->content;
+	envp = env_to_envp();
+	pid = fork();
+	if (pid == 0) // child process
+	{
+		execve(t->args[0], t->args, envp);
+		exit(66);
+	}
+	ft_tabfree(envp);
+	return (0);
+}
+*/
