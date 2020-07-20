@@ -134,4 +134,6 @@ int			ft_semicolon(t_list *token, t_fds *fds);
 int			ft_and(t_list *token, t_fds *fds);
 int			ft_or(t_list *token, t_fds *fds); */
 
+t_list		*retrieve_command(t_list *token);
+
 #endif

@@ -29,6 +29,7 @@ static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux 
 	{
 		printf("syntax error: open quotes %d\n", q);
 		ft_lstclear(&l, free);
+		return (NULL);
 	}
 	return (l);
 }
@@ -115,8 +116,12 @@ static t_list	*to_tokens(t_list **lst)
 	while (l)
 	{
 		type = ft_tabindex(g_symbols_strs, l->content) + 1;
-		if (g_add_token[type](&t, &l, &current_cmd) == NULL)
-			l = ft_lstlast(l);
+		if (g_add_token[type](&t, &l, &current_cmd) == NULL) // si syntax error ou autre
+		{
+			ft_lstclear(&t, &ft_token_free);
+			ft_lstclear(lst, free);
+			return (NULL);
+		}
 		l = l->next;
 	}
 	ft_lstclear(lst, free);
@@ -151,7 +156,8 @@ t_list     *input_to_token_list(char *input)
 {
 	t_list	*l;
 
-	l = ft_split1(input);
+	if ((l = ft_split1(input)) == NULL)
+		return (NULL);
 	ft_split2(&l);
 	l = to_tokens(&l);
 	return (l);

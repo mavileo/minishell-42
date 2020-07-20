@@ -26,7 +26,7 @@ int		main(int ac, char *av[], char *envp[])
 {
 	char	*input;
 	t_list	*lst;
-	//int		i;
+	char	run;
 	//t_list *token;
 
 	(void)ac;
@@ -34,18 +34,29 @@ int		main(int ac, char *av[], char *envp[])
 	init_env(envp);
 	//signal(SIGINT, handle_ctrl_c);
 	//signal(SIGQUIT, handle_ctrl_bs);
-	while (1)
+	run = 1;
+	while (run)
 	{
 		prompt();
 		get_next_line(0, &input);
 		if (!ft_strcmp(input, "q") || !ft_strcmp(input, "exit"))
-			break;
+			run = 0;
 		else
 		{
 			lst = input_to_token_list(input);
-			tokens_container(lst);
-			ft_lstclear(&lst, &ft_token_free);
+			if (lst == NULL) // c'est qu'il y a eu une syntax error donc
+			{
+				add_env("PIPESTATUS", "2");				
+				printf("input_to_token_list à renvoyé une liste nulle\n");
+			}
+			else
+			{
+				printf("call tokens_container\n");
+				tokens_container(lst);
+				ft_lstclear(&lst, &ft_token_free);
+			}
 		}
+		free(input);
 	}
 	free_all_env();
 	return (0);
