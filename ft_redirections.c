@@ -43,10 +43,12 @@
 **	Même sans commande, les redirections s'executent.
 */
 
-static t_list	*retrieve_command(t_list *token)
+t_list	*retrieve_command(t_list *token)
 {
 	t_token *t;
 
+	if (token->prev == NULL)
+		return (NULL);
 	while ((t = token->content) && t->type > COMMAND && t->type <= R_INPUT)
 		token = token->prev;
 	if (t->type == COMMAND)
