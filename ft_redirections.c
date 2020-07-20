@@ -100,9 +100,7 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 		g_exec_token[COMMAND](command, fds);
 	dup2(stdout_s, STDOUT_FILENO);
 	close(f_fd);
-	// DEBUGG
-	printf("STDOUT à bien été restorée !\n");
-	return (0); // ?
+	return (0);
 }
 
 int                     ft_r_input(t_list *token, t_fds *fds)
@@ -121,14 +119,14 @@ int                     ft_r_input(t_list *token, t_fds *fds)
 		return (errno);
 	}
 	dup2(f_fd, STDIN_FILENO);
-	if (token->next && ((t_token*)token->next->content)->type <= R_INPUT) // si next est de type redirection
+	if (token->next && ((t_token*)token->next->content)->type <= R_INPUT)
 		g_exec_token[((t_token*)token->next->content)->type](token->next, fds);
 	command = NULL;
-	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT) // si next n'est pas de type redirection
+	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT)
 		command = retrieve_command(token);
 	if (command)
 		g_exec_token[COMMAND](command, fds);
 	dup2(stdin_s, STDIN_FILENO);
 	close(f_fd);
-	return (0); // ?
+	return (0);
 }
