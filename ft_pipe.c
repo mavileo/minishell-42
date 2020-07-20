@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/18 13:09:11 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/20 08:05:36 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int		exec_command(t_list *token, t_fds *fds, int status)
 			return (1);
 		close(fds->pipe[1]);
 		ft_command(token, fds);
+		exit(0);
 	}
 	else
 	{
+		wait(&status);
 		close(fds->pipe[1]);
 		if (dup2(fds->save_stdout, 1) == -1)
 			return (1);
@@ -42,7 +44,7 @@ int		ft_pipe(t_list *token, t_fds *fds)
 {
 	static int	count = 0;
 	int			status = 0;
-//	int			pid;
+	char		*tmp;
 
 	if (!count)
 		token = token->prev;
@@ -53,13 +55,20 @@ int		ft_pipe(t_list *token, t_fds *fds)
 		if (pipe(fds->pipe) == -1)
 			return (1);
 		if (exec_command(token, fds, status))
-			exit(1);
+			return (1);
 	}
 	else
 	{
-		write(1, ft_itoa(count), strlen(ft_itoa(count)));
-		ft_command(token, fds);
+		if (ft_command(token, fds) == -1)
+		{
+			wait(&status);
+			add_env("PIPESTATUS", (tmp = ft_itoa(status)));
+			free(tmp);
+		}
+		wait(&status);
+		if (dup2(fds->save_stdin, 0) == -1)
+			return (1);
+		count = 0;
 	}
-	exit(0);
 	return (0);
 }
