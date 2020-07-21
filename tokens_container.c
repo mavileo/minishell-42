@@ -19,6 +19,8 @@ int		tokens_container(t_list *tokens_list)
 	int		status;
 	char	*tmp;
 
+	if (tokens_list == NULL)
+		return (0);
 	fds = init_fds();
 	if (!(token = get_first_token(tokens_list)))
 		return (0);

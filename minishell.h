@@ -81,6 +81,7 @@ t_list		*input_to_token_list(char *input);
 int			get_abs_value(char **args);
 t_list		*get_next_token(t_list *tokens_list);
 t_list		*get_first_token(t_list *tokens_list);
+t_list		*get_next_semicolon(t_list *token);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int			add_env(char *name, char *value);
@@ -109,6 +110,7 @@ t_token		*ft_token_new(enum e_token_type type, char **args);
 void		ft_token_free(void *token);
 void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 int			tokens_container(t_list *tokens_list);
+t_token 	*ft_token_dup(t_token *src);
 
 /* PARSING */
 extern const char	*g_symbols_strs[6];
@@ -130,10 +132,10 @@ int			ft_r_append(t_list *token, t_fds *fds);
 int			ft_r_trunc(t_list *token, t_fds *fds);
 int			ft_r_input(t_list *token, t_fds *fds);
 /*
-int			ft_semicolon(t_list *token, t_fds *fds);
 int			ft_and(t_list *token, t_fds *fds);
 int			ft_or(t_list *token, t_fds *fds); */
 
 t_list		*retrieve_command(t_list *token);
+t_list  *commands(t_list *tokens);
 
 #endif

@@ -16,7 +16,7 @@ MINISHFCT = prompt.c \
 		env_funcs.c env_funcs2.c \
 		path.c ft_cd.c \
 		get_tokens.c \
-		tokens_container.c \
+		tokens_container.c commands_list.c \
 		ft_echo.c \
 		ft_pwd.c \
 		ft_export.c ft_unset.c \
@@ -59,4 +59,4 @@ parsing: libft minishlib
 	gcc -g $(FLAGS) main_parsing.c  $(LIBS) -o $(NAME)
 
 tests: libft minishlib
-	gcc -g $(FLAGS) tmp.c  $(LIBS) -o $(NAME)
+	gcc -g $(FLAGS) tests/tmp.c  $(LIBS) -o $(NAME)
