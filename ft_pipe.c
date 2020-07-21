@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/20 08:05:36 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/20 23:19:51 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ int		ft_pipe(t_list *token, t_fds *fds)
 		if (dup2(fds->save_stdin, 0) == -1)
 			return (1);
 		count = 0;
+		if (!(token = get_next_token(token)))
+			return (0);
+		if (g_exec_token[((t_token *)token->content)->type](token, fds) == -1)
+		{
+			wait(&status);
+			add_env("PIPESTATUS", (tmp = ft_itoa(status)));
+			free(tmp);
+		}
 	}
 	return (0);
 }
