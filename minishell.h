@@ -69,6 +69,7 @@ void    handle_ctrl_bs(int i);
 void    save_process_pid(int pid);
 
 /* GENERAL */
+char    *get_input(void);
 void		prompt(void);
 t_list		*input_to_token_list(char *input);
 int			get_abs_value(char **args);
