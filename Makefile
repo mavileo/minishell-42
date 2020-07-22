@@ -8,7 +8,7 @@ LIBS = minishlib.a libft/libft.a
 
 #BUILTINS 
 
-MINISHFCT = prompt.c \
+MINISHFCT = prompt.c get_input.c \
 		token_utils.c 	\
 		add_token_functions.c \
 		input_to_token_list.c \

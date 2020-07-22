@@ -76,7 +76,7 @@ int		exec_bin(t_list *token, char **envp)
 		execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, envp);
 		exit(errno);
 	}
-	save_pid(pid);
+	save_process_pid(pid);
 	free_envp(envp);
 	return (-1);
 }

@@ -12,42 +12,31 @@
 
 #include "minishell.h"
 
-t_env	*env = NULL;
-
-int		(*g_builtins[]) () = {&ft_echo, &ft_pwd, &ft_cd, &ft_export,
-								&ft_unset, &ft_env, &ft_exit};
-int		(*g_exec_token[]) () = {&ft_command, &ft_r_append, &ft_r_trunc,
-								&ft_r_input, &ft_pipe};
-char	*builtins[] = {"echo", "pwd", "cd", "export", "unset", "env", "exit", NULL};
-
-t_list *process_pids;
-
-int		main(int ac, char *av[], char *envp[])
+char	*get_input(void)
 {
-	char	*input;
-	t_list	*lst;
+	char *input;
+	char *tmp;
+	char buffer[BUFFER_SIZE];
+	int i;
 
-	(void)ac;
-	(void)av;
-	init_env(envp);
-	signal(SIGINT, handle_ctrl_c);
-	//signal(SIGQUIT, handle_ctrl_bs);
-	while (TRUE)
+	input = NULL;
+	ft_memset(buffer, 0, BUFFER_SIZE);
+	while (read(0, buffer, BUFFER_SIZE) != -1)
 	{
-		prompt();
-		if ((input = get_input()) == NULL)
+		if (buffer[0] == 0)
 		{
-			write(1, "exit\n", 5);
-			break ;
+			free(input);
+			return (NULL);
 		}
-		printf("%s\n", input);
-		lst = input_to_token_list(input);
-		lst = commands_list(lst);	
-		execute_commands(lst);
-		ft_lstclear(&process_pids, free);
-		process_pids = NULL;
-		free(input);
+		input = ft_strjoin_free(input, buffer, 1);
+		i = ft_index(buffer, '\n');
+		if (i != -1)
+		{
+			tmp = input;
+			input = ft_substr(input, 0, i);
+			free(tmp);
+			return (input);
+		}
 	}
-	free_all_env();
-	return (0);
+	return (NULL);
 }
