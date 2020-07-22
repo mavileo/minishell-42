@@ -57,6 +57,7 @@ void	free_envp(char **envp)
 int		exec_bin(t_list *token, char **envp)
 {
 	char	*s;
+	int		pid;
 
 	s = ft_strdup(((t_token *)token->content)->args[0]);
 	if (get_abs_value(((t_token *)token->content)->args))
@@ -70,11 +71,12 @@ int		exec_bin(t_list *token, char **envp)
 		return (127);
 	}
 	free(s);
-	if (!(fork()))
+	if ((pid = (fork())) == 0)
 	{
 		execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, envp);
 		exit(errno);
 	}
+	save_pid(pid);
 	free_envp(envp);
 	return (-1);
 }
