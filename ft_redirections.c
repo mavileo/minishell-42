@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:53:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/22 22:23:37 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/23 00:44:11 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@
 **	Même sans commande, les redirections s'executent.
 */
 
-char	is_redirection(enum e_token_type type)
-{
-	if (type > COMMAND && type <= R_INPUT)
-		return (TRUE);
-	return (FALSE);
-}
-
 t_list	*retrieve_command(t_list *token)
 {
 	t_token *t;
@@ -57,7 +50,7 @@ t_list	*retrieve_command(t_list *token)
 	if (token->prev == NULL)
 		return (NULL);
 	while ((t = token->content) && t->type > COMMAND && t->type <= R_INPUT)
-		token = token->prev;
+		token = token->prev;		
 	if (t->type == COMMAND)
 		return (token);
 	else
@@ -71,30 +64,24 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 	t_list *command;
 	char *filename;
 	int status;
+	int ret;
 	char *tmp;
 
 	stdout_s = dup(STDOUT_FILENO); // sauvegarde STDOUT
 	filename = ((t_token*)token->content)->args[0]; // isole le nom du fichier à créer/ouvrir
 	if ((f_fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0666)) == -1) // ouvre/créer le fichier avec le bon flag O_APPEND
-		return (-1);
+		return (1);
 	dup2(f_fd, STDOUT_FILENO); // transforme STDOUT en le fd du fichier obtenu
 	if (token->next && ((t_token*)token->next->content)->type <= R_INPUT) // si next existe ET est de type redirection
 		g_exec_token[((t_token*)token->next->content)->type](token->next, fds); // on execute next avec la bonne fonction (execution recursive des redirections successives)
 	command = NULL; // set à NULL au cas le if du dessous est false
 	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT) // si next n'existe pas OU n'est pas de type redirection
 		command = retrieve_command(token); // on remonte les ->prev jusqu'à trouver la commande de base (ex: $> ls > file1 >> file2 >> file 3 < input1: on remonte jusqu'à ls)
-	if (command) // si on a effectivement trouvé une commande
-	{
-		if (g_exec_token[((t_token *)token->content)->type](token, fds) == -1)
-		{
-			wait(&status);
-			add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
-			free(tmp);
-		}
-	}
+	if (command)
+		ft_command(command, fds);
 	dup2(stdout_s, STDOUT_FILENO); // on reset STDOUT à son fd d'origine
 	close(f_fd); // on ferme le fichier ouvert
-	return (-1); // ?
+	return (0); // ?
 }
 
 int                     ft_r_trunc(t_list *token, t_fds *fds)
@@ -103,11 +90,14 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
+	int status;
+	int ret;
+	char *tmp;
 
 	stdout_s = dup(STDOUT_FILENO);
 	filename = ((t_token*)token->content)->args[0];
 	if ((f_fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0666)) == -1)
-		return (-1);
+		return (1);
 	dup2(f_fd, STDOUT_FILENO);
 	if (token->next && ((t_token*)token->next->content)->type <= R_INPUT)
 		g_exec_token[((t_token*)token->next->content)->type](token->next, fds);
@@ -115,10 +105,10 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT)
 		command = retrieve_command(token);
 	if (command)
-		g_exec_token[COMMAND](command, fds);
+		ft_command(command, fds);
 	dup2(stdout_s, STDOUT_FILENO);
 	close(f_fd);
-	return (-1);
+	return (0);
 }
 
 int                     ft_r_input(t_list *token, t_fds *fds)
@@ -127,6 +117,9 @@ int                     ft_r_input(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
+	int status;
+	int ret;
+	char *tmp;
 
 	stdin_s = dup(STDIN_FILENO);
 	filename = ((t_token*)token->content)->args[0];
@@ -143,8 +136,8 @@ int                     ft_r_input(t_list *token, t_fds *fds)
 	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT)
 		command = retrieve_command(token);
 	if (command)
-		g_exec_token[COMMAND](command, fds);
+		ft_command(command, fds);
 	dup2(stdin_s, STDIN_FILENO);
 	close(f_fd);
-	return (-1);
+	return (0);
 }

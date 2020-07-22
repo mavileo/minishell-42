@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/20 07:33:20 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/23 00:34:51 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		main(int ac, char *av[], char *envp[])
 			write(1, "exit\n", 5);
 			break ;
 		}
-		printf("%s\n", input);
 		lst = input_to_token_list(input);
 		lst = commands_list(lst);	
 		execute_commands(lst);

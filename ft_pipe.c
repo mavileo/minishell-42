@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/22 22:27:18 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/23 00:05:48 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_pipe(t_list *token, t_fds *fds)
 	else
 	{
 		count = 0;
-		if (token->next && (((t_token *)token->next->content)->type == R_APPEND || ((t_token *)token->next->content)->type == R_TRUNC))
+		if (token->next && ((t_token *)token->next->content)->type > 0 && ((t_token *)token->next->content)->type < 4)
 		{
 			g_exec_token[((t_token *)token->next->content)->type](token->next, fds);
 			if (dup2(fds->save_stdin, 0) == -1)
@@ -75,14 +75,6 @@ int		ft_pipe(t_list *token, t_fds *fds)
 		wait(&status);
 		if (dup2(fds->save_stdin, 0) == -1)
 			return (1);
-/* 		if (!(token = get_next_token(token)))
-			return (0);
-		if (g_exec_token[((t_token *)token->content)->type](token, fds) == -1)
-		{
-			wait(&status);
-			add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
-			free(tmp);
-		}
- */	}
+	}
 	return (0);
 }
