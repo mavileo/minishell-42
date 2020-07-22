@@ -25,7 +25,6 @@ int		main(int ac, char *av[], char *envp[])
 	char	*input;
 	t_list	*lst;
 	char	run;
-	//t_list *token;
 
 	(void)ac;
 	(void)av;
