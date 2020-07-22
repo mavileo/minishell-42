@@ -46,9 +46,8 @@ int		main(int ac, char *av[], char *envp[])
 				add_env("PIPESTATUS", "2");				
 			else
 			{
-				printf("call tokens_container\n");
-				tokens_container(lst);
-				ft_lstclear(&lst, &ft_token_free);
+				lst = commands_list(lst);	
+				execute_commands(lst);
 			}
 		}
 		free(input);

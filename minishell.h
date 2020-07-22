@@ -136,6 +136,7 @@ int			ft_and(t_list *token, t_fds *fds);
 int			ft_or(t_list *token, t_fds *fds); */
 
 t_list		*retrieve_command(t_list *token);
-t_list  *commands(t_list *tokens);
+t_list  *commands_list(t_list *tokens);
+void execute_commands(t_list *commands);
 
 #endif

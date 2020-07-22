@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 /*
 **	Prends la liste de token obtenue du parsing, la split en plusieurs
@@ -21,7 +21,7 @@
 **	On pourra itérer sur cette liste pour executer les commandes.
 */
 
-t_list	*commands(t_list *tokens)
+t_list	*commands_list(t_list *tokens)
 {
 	t_list *head;
 	t_list *commands;
@@ -45,4 +45,30 @@ t_list	*commands(t_list *tokens)
 		ft_lstadd_back(&commands, ft_lstnew(nlst));
 	ft_lstclear(&head, &ft_token_free);
 	return (commands);
+}
+
+
+/*
+**	Reçoit une liste donc chaque maillon contient une liste de tokens
+**	représentant une commande à traiter
+**	Itère sur la liste pour executer chaque commande + free
+*/
+
+void execute_commands(t_list *commands)                                   
+{
+	t_list *head;
+	t_list *tmp;
+	
+	if (commands == NULL)
+		return ;
+	head = commands;
+	while (commands)
+	{                                                                            
+		tmp = commands->content;
+		tokens_container(tmp);
+		ft_lstclear(&tmp, &ft_token_free);
+		commands->content = NULL;
+		commands = commands->next;
+	}
+	ft_lstclear(&head, free);
 }
