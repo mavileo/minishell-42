@@ -78,7 +78,7 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 		g_exec_token[COMMAND](command, fds); // on appel ft_command sur ce token command, si il n'y en a pas, on s'en fou, le fichier à été ouvert c'est ce qui compte
 	dup2(stdout_s, STDOUT_FILENO); // on reset STDOUT à son fd d'origine
 	close(f_fd); // on ferme le fichier ouvert
-	return (0); // ?
+	return (-1); // ?
 }
 
 int                     ft_r_trunc(t_list *token, t_fds *fds)
@@ -102,7 +102,7 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 		g_exec_token[COMMAND](command, fds);
 	dup2(stdout_s, STDOUT_FILENO);
 	close(f_fd);
-	return (0);
+	return (-1);
 }
 
 int                     ft_r_input(t_list *token, t_fds *fds)
@@ -130,5 +130,5 @@ int                     ft_r_input(t_list *token, t_fds *fds)
 		g_exec_token[COMMAND](command, fds);
 	dup2(stdin_s, STDIN_FILENO);
 	close(f_fd);
-	return (0);
+	return (-1);
 }
