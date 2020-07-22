@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirections.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:53:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/18 15:47:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 22:23:37 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
+	int status;
+	char *tmp;
 
 	stdout_s = dup(STDOUT_FILENO); // sauvegarde STDOUT
 	filename = ((t_token*)token->content)->args[0]; // isole le nom du fichier à créer/ouvrir
@@ -82,7 +84,14 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 	if (!token->next || ((t_token*)token->next->content)->type > R_INPUT) // si next n'existe pas OU n'est pas de type redirection
 		command = retrieve_command(token); // on remonte les ->prev jusqu'à trouver la commande de base (ex: $> ls > file1 >> file2 >> file 3 < input1: on remonte jusqu'à ls)
 	if (command) // si on a effectivement trouvé une commande
-		g_exec_token[COMMAND](command, fds); // on appel ft_command sur ce token command, si il n'y en a pas, on s'en fou, le fichier à été ouvert c'est ce qui compte
+	{
+		if (g_exec_token[((t_token *)token->content)->type](token, fds) == -1)
+		{
+			wait(&status);
+			add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
+			free(tmp);
+		}
+	}
 	dup2(stdout_s, STDOUT_FILENO); // on reset STDOUT à son fd d'origine
 	close(f_fd); // on ferme le fichier ouvert
 	return (-1); // ?
