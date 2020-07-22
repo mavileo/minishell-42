@@ -59,7 +59,6 @@ t_list	*get_first_token(t_list *tokens_list)
 **	Renvoie le prochain token a executer en se basant sur le token courant
 **
 **	Si c'est un pipe, renvoie le prochain pipe, ou la prochaine redirection, ou la prochaine commande
-**	Si c'est un semicolon, renvoie le prochain semicolon
 */
 
 t_list	*get_next_token(t_list *tokens_list)
@@ -87,4 +86,24 @@ t_list	*get_next_token(t_list *tokens_list)
 		tokens_list = tokens_list->next;
 	}
 	return (keep);
+}
+
+/*
+**	Reçois une liste de tokens, renvoie le prochain semicolon (même si le token)
+**	reçu est un semicolon
+*/
+
+t_list	*get_next_semicolon(t_list *token)
+{
+	t_token *t;
+
+	if (token == NULL || token->next == NULL)
+		return (NULL);
+	while ((token = token->next) != NULL)
+	{
+		t = token->content;
+		if (t->type == SEMICOLON)
+			return (token);
+	}
+	return (NULL);
 }

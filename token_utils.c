@@ -26,6 +26,18 @@ void	ft_token_free(void *token)
 	}
 }
 
+t_token	*ft_token_dup(t_token *src)
+{
+	t_token	*token;
+
+	if ((token = malloc(sizeof(t_token))) == NULL)
+		return (NULL);
+	token->type = src->type;
+	token->args = (char**)ft_tabdup(src->args, (void*)ft_strdup);
+	return (token);
+}
+
+
 void		ft_print_token_list(t_list *l) // TEST ONLY !!! USELESS
 {
 	static const char *strs[] = {"COMMAND", "R_APPEND", "R_TRUNC", "R_IN", "PIPE", "SEMICOLON"};

@@ -41,7 +41,7 @@ SRCS = 	ft_memset.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		ft_tabfree.c ft_tabindex.c ft_tabpush.c \
+		ft_tabfree.c ft_tabindex.c ft_tabpush.c ft_tabdup.c \
 		get_next_line.c
 
 HEADER = libft.h

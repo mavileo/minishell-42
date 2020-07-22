@@ -62,7 +62,7 @@ int		ft_pipe(t_list *token, t_fds *fds)
 		if (ft_command(token, fds) == -1)
 		{
 			wait(&status);
-			add_env("PIPESTATUS", (tmp = ft_itoa(status)));
+			add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 			free(tmp);
 		}
 		wait(&status);
@@ -74,7 +74,7 @@ int		ft_pipe(t_list *token, t_fds *fds)
 		if (g_exec_token[((t_token *)token->content)->type](token, fds) == -1)
 		{
 			wait(&status);
-			add_env("PIPESTATUS", (tmp = ft_itoa(status)));
+			add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 			free(tmp);
 		}
 	}

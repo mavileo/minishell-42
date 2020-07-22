@@ -23,8 +23,7 @@
 #define FALSE 0
 #define	CMP_SYMBOLS "<>|;"
 #define	SYMBOL_MAX_LEN 2
-#define	SYMBOL_TABLE_FILE_LOCATION "input_to_token_list.c"
-#define	REDIRECTIONS(type) type > 0 && type < 4 ? TRUE : FALSE
+#define	SYNTAX_ERROR_CODE "2"
 
 enum	e_token_type
 {
@@ -35,16 +34,7 @@ enum	e_token_type
 	PIPE,
 	SEMICOLON,
 };
-/* 
-enum	e_token_type
-{
-	COMMAND,
-	PIPE, 
-	SEMICOLON,
-	AND,
-	OR
-};
- */
+
 typedef	struct	s_env
 {
 	char 			*name;
@@ -81,6 +71,7 @@ t_list		*input_to_token_list(char *input);
 int			get_abs_value(char **args);
 t_list		*get_next_token(t_list *tokens_list);
 t_list		*get_first_token(t_list *tokens_list);
+t_list		*get_next_semicolon(t_list *token);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int			add_env(char *name, char *value);
@@ -109,6 +100,7 @@ t_token		*ft_token_new(enum e_token_type type, char **args);
 void		ft_token_free(void *token);
 void		ft_print_token_list(t_list *l); // USELESS: ONLY FOR TEST
 int			tokens_container(t_list *tokens_list);
+t_token 	*ft_token_dup(t_token *src);
 
 /* PARSING */
 extern const char	*g_symbols_strs[6];
@@ -130,10 +122,11 @@ int			ft_r_append(t_list *token, t_fds *fds);
 int			ft_r_trunc(t_list *token, t_fds *fds);
 int			ft_r_input(t_list *token, t_fds *fds);
 /*
-int			ft_semicolon(t_list *token, t_fds *fds);
 int			ft_and(t_list *token, t_fds *fds);
 int			ft_or(t_list *token, t_fds *fds); */
 
 t_list		*retrieve_command(t_list *token);
+t_list  *commands_list(t_list *tokens);
+void execute_commands(t_list *commands);
 
 #endif

@@ -61,8 +61,8 @@ int		exec_bin(t_list *token, char **envp)
 	s = ft_strdup(((t_token *)token->content)->args[0]);
 	if (get_abs_value(((t_token *)token->content)->args))
 	{
-		ft_putstr_fd(s, 1);
-		ft_putstr_fd(" : commande introuvable\n", 1);
+		ft_putstr_fd(s, STDERR_FILENO);
+		ft_putstr_fd(" : commande introuvable\n", STDERR_FILENO);
 		free(s);
 		add_env("PIPESTATUS", (s = ft_itoa(127)));
 		free(s);
@@ -109,8 +109,8 @@ int		ft_command(t_list *token, t_fds *fds)
 	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
 		!ft_strcmp(((t_token *)token->content)->args[0], "."))
 	{
-		ft_putstr_fd(((t_token *)token->content)->args[0], 1);
-		ft_putstr_fd(" : commande introuvable\n", 1);
+		ft_putstr_fd(((t_token *)token->content)->args[0], STDERR_FILENO);
+		ft_putstr_fd(" : commande introuvable\n", STDERR_FILENO);
 		add_env("PIPESTATUS", "127");
 		return (0);
 	}
