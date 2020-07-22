@@ -69,9 +69,12 @@ void    handle_ctrl_bs(int i);
 void		prompt(void);
 t_list		*input_to_token_list(char *input);
 int			get_abs_value(char **args);
-t_list		*get_next_token(t_list *tokens_list);
 t_list		*get_first_token(t_list *tokens_list);
 t_list		*get_next_semicolon(t_list *token);
+t_list		*get_next_pipe(t_list *token);
+t_list		*get_next_redirection(t_list *token);
+t_list		*get_next_command(t_list *token);
+t_list		*get_next_token(t_list *token);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int			add_env(char *name, char *value);
@@ -128,5 +131,6 @@ int			ft_or(t_list *token, t_fds *fds); */
 t_list		*retrieve_command(t_list *token);
 t_list  *commands_list(t_list *tokens);
 void execute_commands(t_list *commands);
+char	is_redirection(enum e_token_type type);
 
 #endif

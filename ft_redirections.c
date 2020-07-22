@@ -43,6 +43,13 @@
 **	Même sans commande, les redirections s'executent.
 */
 
+char	is_redirection(enum e_token_type type)
+{
+	if (type > COMMAND && type <= R_INPUT)
+		return (TRUE);
+	return (FALSE);
+}
+
 t_list	*retrieve_command(t_list *token)
 {
 	t_token *t;
