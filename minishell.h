@@ -57,13 +57,16 @@ typedef struct		s_fds
 }					t_fds;
 
 extern t_env	*env;
+extern t_list	*process_pids;
 extern int		(*g_builtins[]) ();
 extern int		(*g_exec_token[]) ();
 extern char		*builtins[];
 
 /* SIGNAUX */
+int     *aaintptr(int v);
 void    handle_ctrl_c(int i);
 void    handle_ctrl_bs(int i);
+void    save_process_pid(int pid);
 
 /* GENERAL */
 void		prompt(void);
