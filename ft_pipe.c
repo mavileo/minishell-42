@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/20 23:19:51 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/22 20:03:34 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int		ft_pipe(t_list *token, t_fds *fds)
 	}
 	else
 	{
+		if (count && token->next && (((t_token *)token->next->content)->type == R_APPEND || ((t_token *)token->next->content)->type == R_TRUNC) && token->next->next)
+			g_exec_token[((t_token *)token->next->content)->type](token->next, fds);
 		if (ft_command(token, fds) == -1)
 		{
 			wait(&status);

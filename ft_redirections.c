@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirections.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:53:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/18 15:47:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/22 20:34:59 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ t_list	*retrieve_command(t_list *token)
 	if (token->prev == NULL)
 		return (NULL);
 	while ((t = token->content) && t->type > COMMAND && t->type <= R_INPUT)
-		token = token->prev;
+	{
+/* 		write(1, "type : ", ft_strlen("type : "));
+		write(1, ft_itoa(t->type), ft_strlen(ft_itoa(t->type)));
+		write(1, "\nrgs[0] : ", ft_strlen("\nrgs[0] : "));
+		write(1, t->args[0], ft_strlen(t->args[0]));
+		write(1, "\n\n", 2);
+ */		token = token->prev;		
+	}
 	if (t->type == COMMAND)
 		return (token);
 	else
@@ -77,6 +84,7 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 	if (command) // si on a effectivement trouvé une commande
 		g_exec_token[COMMAND](command, fds); // on appel ft_command sur ce token command, si il n'y en a pas, on s'en fou, le fichier à été ouvert c'est ce qui compte
 	dup2(stdout_s, STDOUT_FILENO); // on reset STDOUT à son fd d'origine
+	printf("token : %d %s\n", ((t_token*)token->content)->type, ((t_token*)token->content)->args[0]);
 	close(f_fd); // on ferme le fichier ouvert
 	return (-1); // ?
 }
@@ -101,6 +109,7 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 	if (command)
 		g_exec_token[COMMAND](command, fds);
 	dup2(stdout_s, STDOUT_FILENO);
+	printf("token trunc : %d %s\n", ((t_token*)command->content)->type, ((t_token*)command->content)->args[0]);
 	close(f_fd);
 	return (-1);
 }

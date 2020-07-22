@@ -1,0 +1,4 @@
+  PID TTY          TIME CMD
+13052 pts/2    00:00:02 zsh
+28081 pts/2    00:00:00 a.out
+28095 pts/2    00:00:00 ps
