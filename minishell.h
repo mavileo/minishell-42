@@ -23,8 +23,7 @@
 #define FALSE 0
 #define	CMP_SYMBOLS "<>|;"
 #define	SYMBOL_MAX_LEN 2
-#define	SYMBOL_TABLE_FILE_LOCATION "input_to_token_list.c"
-#define	REDIRECTIONS(type) type > 0 && type < 4 ? TRUE : FALSE
+#define	SYNTAX_ERROR_CODE "2"
 
 enum	e_token_type
 {
@@ -35,16 +34,7 @@ enum	e_token_type
 	PIPE,
 	SEMICOLON,
 };
-/* 
-enum	e_token_type
-{
-	COMMAND,
-	PIPE, 
-	SEMICOLON,
-	AND,
-	OR
-};
- */
+
 typedef	struct	s_env
 {
 	char 			*name;

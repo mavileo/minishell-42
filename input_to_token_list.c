@@ -160,5 +160,7 @@ t_list     *input_to_token_list(char *input)
 		return (NULL);
 	ft_split2(&l);
 	l = to_tokens(&l);
+	if (l == NULL)
+		add_env("PIPESTATUS", SYNTAX_ERROR_CODE);
 	return (l);
 }

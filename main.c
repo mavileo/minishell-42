@@ -42,13 +42,8 @@ int		main(int ac, char *av[], char *envp[])
 		else
 		{
 			lst = input_to_token_list(input);
-			if (lst == NULL) // c'est qu'il y a eu une syntax error donc
-				add_env("PIPESTATUS", "2");				
-			else
-			{
-				lst = commands_list(lst);	
-				execute_commands(lst);
-			}
+			lst = commands_list(lst);	
+			execute_commands(lst);
 		}
 		free(input);
 	}

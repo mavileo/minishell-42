@@ -27,6 +27,8 @@ t_list	*commands_list(t_list *tokens)
 	t_list *commands;
 	t_list *nlst;
 
+	if (tokens == NULL)
+		return (NULL);
 	head = tokens;
 	commands = NULL;
 	nlst = NULL;
@@ -61,6 +63,7 @@ void execute_commands(t_list *commands)
 	
 	if (commands == NULL)
 		return ;
+	add_env("PIPESTATUS", "0");
 	head = commands;
 	while (commands)
 	{                                                                            
