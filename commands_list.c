@@ -61,7 +61,6 @@ void execute_commands(t_list *commands)
 	t_list *head;
 	t_list *tmp;
 	
-	add_env("PIPESTATUS", "0");
 	if (commands == NULL)
 		return ;
 	head = commands;

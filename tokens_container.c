@@ -27,7 +27,7 @@ int		tokens_container(t_list *tokens_list)
 		return (0);
 	ret = g_exec_token[((t_token *)token->content)->type](token, fds);
 	wait(&status);
-	if (ret == -1)
+	if (ret == -1 && ft_atoi(get_env_value("PIPESTATUS")) != 130 && ft_atoi(get_env_value("PIPESTATUS")) != 131)
 	{
 		add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 		free(tmp);

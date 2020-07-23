@@ -40,16 +40,19 @@ void	handle_ctrl_bs(int i)
 	(void)i;
 
 	plst = process_pids;
-	if (plst)
-		ft_putstr("Quit (core dumped)\n");
-	else
-		ft_putstr("\b\b  \b\b");
 	while (plst)
 	{
 		pid = *((int *)plst->content);
 		kill(pid, SIGKILL);
 		plst = plst->next;
 	}
+	if (process_pids)
+	{
+		ft_putstr("Quit (core dumped)\n");
+		add_env("PIPESTATUS", "131");
+	}
+	else
+		ft_putstr("\b\b  \b\b");
 }
 
 void	save_process_pid(int pid)

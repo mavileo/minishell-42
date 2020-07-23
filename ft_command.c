@@ -103,11 +103,8 @@ int		check_builtins(t_list *token)
 
 int		ft_command(t_list *token, t_fds *fds)
 {
-//	int		status;
-//	int		pid;
 	char	**envp;
 
-	add_env("PIPESTATUS", "0");
 	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
 		!ft_strcmp(((t_token *)token->content)->args[0], "."))
 	{
@@ -117,7 +114,6 @@ int		ft_command(t_list *token, t_fds *fds)
 		return (0);
 	}
 	envp = env_to_envp();
-//	status = 0;
 	(void)fds;
 	if (!token->content)
 		return (1);
