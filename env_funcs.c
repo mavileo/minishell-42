@@ -68,6 +68,7 @@ int		init_env(char *envp[])
 		free(value);
 		i++;
 	}
+	add_env("PIPESTATUS", "0");
 	return (0);
 }
 

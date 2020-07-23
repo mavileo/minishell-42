@@ -30,11 +30,26 @@ void	handle_ctrl_c(int i)
 	write(1, "\n", 1);
 	if (process_pids == NULL)
 		prompt();
+	add_env("PIPESTATUS", "130");
 }
 
 void	handle_ctrl_bs(int i)
 {
-	printf("CTRL-\\ has been pressed. Param: %d\n", i);
+	t_list *plst;
+	int		pid;
+	(void)i;
+
+	plst = process_pids;
+	if (plst)
+		ft_putstr("Quit (core dumped)\n");
+	else
+		ft_putstr("\b\b  \b\b");
+	while (plst)
+	{
+		pid = *((int *)plst->content);
+		kill(pid, SIGKILL);
+		plst = plst->next;
+	}
 }
 
 void	save_process_pid(int pid)

@@ -63,9 +63,6 @@ int                     ft_r_append(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
-	int status;
-	int ret;
-	char *tmp;
 
 	stdout_s = dup(STDOUT_FILENO); // sauvegarde STDOUT
 	filename = ((t_token*)token->content)->args[0]; // isole le nom du fichier à créer/ouvrir
@@ -90,9 +87,6 @@ int                     ft_r_trunc(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
-	int status;
-	int ret;
-	char *tmp;
 
 	stdout_s = dup(STDOUT_FILENO);
 	filename = ((t_token*)token->content)->args[0];
@@ -117,9 +111,6 @@ int                     ft_r_input(t_list *token, t_fds *fds)
 	int f_fd;
 	t_list *command;
 	char *filename;
-	int status;
-	int ret;
-	char *tmp;
 
 	stdin_s = dup(STDIN_FILENO);
 	filename = ((t_token*)token->content)->args[0];

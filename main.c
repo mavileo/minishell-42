@@ -31,15 +31,12 @@ int		main(int ac, char *av[], char *envp[])
 	(void)av;
 	init_env(envp);
 	signal(SIGINT, handle_ctrl_c);
-	//signal(SIGQUIT, handle_ctrl_bs);
+	signal(SIGQUIT, handle_ctrl_bs);
 	while (TRUE)
 	{
 		prompt();
 		if ((input = get_input()) == NULL)
-		{
-			write(1, "exit\n", 5);
-			break ;
-		}
+			input = ft_strdup("exit");
 		lst = input_to_token_list(input);
 		lst = commands_list(lst);	
 		execute_commands(lst);
