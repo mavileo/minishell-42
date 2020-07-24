@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 18:51:00 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 12:16:57 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 00:19:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int 	ft_pwd(char **args)
 	char *path;
 
 	(void)args;
-	path = get_env_value("PWD");
+	path = getcwd(NULL, 0);
 	if (path == NULL)
 		return (1);
-	ft_putstr_fd(path, 1);
-	ft_putstr_fd("\n", 1);
+	ft_putendl_fd(path, 1);
+	free(path);
 	return (0);
 }
