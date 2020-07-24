@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 01:41:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/11 17:43:11 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 01:33:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_path(char *s)
 		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
-
+/*
 int 	ft_cd(char **args)
 {
 	char *path;
@@ -115,3 +115,31 @@ int 	ft_cd(char **args)
 	free(path);
 	return (0);
 }
+*/
+
+int 	ft_cd(char **args)
+{
+	char *path;
+	char *cwd;
+	int r;
+
+	path = args[1] ? ft_strdup(args[1]) : replace_env_in_str("/home/$USER");
+	r = 1;
+	if (chdir((const char *)path) == 0) // soit ça marche d'un coup
+		r = 0;
+	else // soit on essaie en construisant le path
+	{
+		cwd = getcwd(NULL, 0);
+		cwd = ft_strjoin_free(cwd, "/", 1);
+		path = ft_strjoin_free(cwd, path, 3);
+		if (chdir((const char *)path) == 0)
+			r = 0;
+	}
+	if (r == 1) // soit c'était invalide et on imprime l'erreur et renvoie 1
+		ft_dsplerr(args[1], strerror(errno));	
+	else
+		actualise_env("PWD", path);
+	free(path);
+	return (r);
+}
+
