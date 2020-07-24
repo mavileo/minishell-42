@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:20:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 12:18:15 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/24 16:42:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		check_name(char *name)
 	j = 0;
 	while (name[j])
 	{
-		if (!ft_isalnum((int)name[j]))
+		if (!ft_isalnum((int)name[j]) && name[j] != '_')
 		{
 			ft_putstr_fd("Invalid variable name\n", 1);
 			return (1);

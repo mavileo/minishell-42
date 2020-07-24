@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:29:44 by user42            #+#    #+#             */
-/*   Updated: 2020/07/24 16:29:47 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/24 17:13:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static unsigned int	expand(char **old, unsigned int i)
 	unsigned int j;
 
 	j = 1;
-	while (ft_isalnum((int)(*old)[i + j]))
+	while (ft_isalnum((int)(*old)[i + j]) || (*old)[i + j] == '_')
 		j++;
 	if (j == 1 && ft_index("?'\"", (*old)[i + j]) == -1)
 		return (i + 1);

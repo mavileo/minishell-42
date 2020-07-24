@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 17:24:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/06 17:21:21 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/24 17:12:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_echo(char **args, int nl, int i)
 {
 	while (args[i])
 	{
-		ft_putstr_fd(replace_env_in_str(args[i]), 1);
+		ft_putstr_fd(args[i], 1);
 		if (args[++i])
 			ft_putstr_fd(" ", 1);
 	}
