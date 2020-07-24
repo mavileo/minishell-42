@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:27:02 by user42            #+#    #+#             */
-/*   Updated: 2020/07/24 16:27:05 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 01:37:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_list	*ft_split1(char *s) // split aux espaces en faisant attention aux 
 	}
 	if (q != 0)
 	{
-		printf("syntax error: open quotes %d\n", q);
+		ft_dsplerr(NULL, "syntax error: open quotes");
 		ft_lstclear(&l, free);
 		return (NULL);
 	}

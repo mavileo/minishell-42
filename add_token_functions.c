@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:31:34 by user42            #+#    #+#             */
-/*   Updated: 2020/07/24 16:31:36 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 01:39:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_token	*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current)
 	last_token = new ? new->content : NULL;
 	if (last_token == NULL || last_token->type > R_INPUT)
 	{
-		printf("syntax error near token ';'\n");
+		ft_dsplerr(NULL, "syntax error near token ';'");
 		return (NULL);
 	}
 	token = ft_token_new(SEMICOLON, NULL);
@@ -92,7 +92,7 @@ t_token	*add_pipe_token(t_list **token_lst, t_list **e, t_token **current)
 	last_token = new ? new->content : NULL;
 	if (last_token == NULL || last_token->type > R_INPUT || (*e)->next == NULL)
 	{
-		printf("syntax error near token '|'\n");
+		ft_dsplerr(NULL, "syntax error near token '|'");
 		return (NULL);
 	}
 	token = ft_token_new(PIPE, NULL);
@@ -120,7 +120,7 @@ t_token	*add_redirection_token(t_list **token_lst, t_list **e, t_token **current
 
 	token = NULL;
 	if ((*e)->next == NULL || ft_tabindex(g_symbols_strs, (*e)->next->content) + 1 != COMMAND)
-		printf("syntax error near token %s\n", (char*)(*e)->content);
+		ft_dsplerr("syntax error near token", (char*)(*e)->content);
 	else
 	{
 		if ((*e)->prev == NULL && (*e)->next && (*e)->next->next)
