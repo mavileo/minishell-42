@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 16:03:27 by user42            #+#    #+#             */
-/*   Updated: 2020/07/18 17:28:50 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 04:23:20 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 **	les types AND et OR. (à faire, bonus)
 */
 
-static unsigned int	priority(enum e_token_type type)
+static unsigned int		priority(enum e_token_type type)
 {
 	if (type == R_APPEND || type == R_TRUNC || type == R_INPUT)
 		return (1);
@@ -34,11 +34,11 @@ static unsigned int	priority(enum e_token_type type)
 		return (type);
 }
 
-t_list	*get_first_token(t_list *tokens_list)
+t_list					*get_first_token(t_list *tokens_list)
 {
-	t_list	*keep;
-	t_token	*token;
-	unsigned int current_priority;
+	t_list			*keep;
+	t_token			*token;
+	unsigned int	current_priority;
 
 	current_priority = 0;
 	keep = tokens_list;
@@ -58,15 +58,16 @@ t_list	*get_first_token(t_list *tokens_list)
 /*
 **	Renvoie le prochain token a executer en se basant sur le token courant
 **
-**	Si c'est un pipe, renvoie le prochain pipe, ou la prochaine redirection, ou la prochaine commande
+**	Si c'est un pipe, renvoie le prochain pipe, ou la prochaine redirection,
+**  ou la prochaine commande
 */
 
-t_list	*get_next_token(t_list *tokens_list)
+t_list					*get_next_token(t_list *tokens_list)
 {
-	t_list	*keep;
-	t_token	*token;
-	unsigned int current_priority;
-	unsigned int max_priority;
+	t_list			*keep;
+	t_token			*token;
+	unsigned int	current_priority;
+	unsigned int	max_priority;
 
 	current_priority = 0;
 	max_priority = ((t_token*)tokens_list->content)->type;
@@ -93,7 +94,7 @@ t_list	*get_next_token(t_list *tokens_list)
 **	reçu est un semicolon
 */
 
-t_list	*get_next_semicolon(t_list *token)
+t_list					*get_next_semicolon(t_list *token)
 {
 	t_token *t;
 
