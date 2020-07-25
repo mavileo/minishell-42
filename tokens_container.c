@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 01:34:55 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/23 00:34:10 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 03:53:41 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int		tokens_container(t_list *tokens_list)
 		return (0);
 	ret = g_exec_token[((t_token *)token->content)->type](token, fds);
 	wait(&status);
-	if (ret == -1 && ft_atoi(get_env_value("PIPESTATUS")) != 130 && ft_atoi(get_env_value("PIPESTATUS")) != 131)
+	if (ret == -1 && ft_atoi(get_env_value("PIPESTATUS")) != 130 &&
+		ft_atoi(get_env_value("PIPESTATUS")) != 131)
 	{
 		add_env("PIPESTATUS", (tmp = ft_itoa(WEXITSTATUS(status))));
 		free(tmp);

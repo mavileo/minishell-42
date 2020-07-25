@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:43:27 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/11 16:13:40 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 03:32:13 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*add_env_to_str(char *str, char *res, int i)
 	}
 	while (str[i + len] && ft_isalnum(str[i + len]))
 		len++;
-	res = ft_strjoin_free(res, get_env_value((to_free =
-	ft_substr(str, i, len))), 1);
+	to_free = ft_substr(str, i, len);
+	res = ft_strjoin_free(res, get_env_value(to_free), 1);
 	free(to_free);
 	to_free = NULL;
 	return (res);
@@ -102,7 +102,7 @@ int		actualise_env(char *name, char *value)
 			new->next = env->next->next;
 			free_env(env->next);
 			env->next = new;
-			break;
+			break ;
 		}
 		env = env->next;
 	}

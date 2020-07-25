@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:04:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/11 17:25:05 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 03:59:12 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 **		 env = add_env(env, "$USER", "username", 1);
 **		 env = addadd_env(env, "$PWD", "/home", 1);
 */
+
 int		add_env(char *name, char *value)
 {
 	t_env	*save;

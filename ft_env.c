@@ -6,13 +6,13 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 06:54:51 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/13 12:16:18 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 03:32:23 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int 	ft_env(char **args)
+int		ft_env(char **args)
 {
 	t_env	*tmp;
 

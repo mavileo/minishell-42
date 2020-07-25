@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:20:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/24 16:42:07 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 03:36:07 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		check_name(char *name)
 	return (0);
 }
 
-int 	ft_export(char **args)
+int		ft_export(char **args)
 {
 	int		i;
 	char	*name;

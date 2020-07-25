@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_token_functions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:31:34 by user42            #+#    #+#             */
-/*   Updated: 2020/07/25 01:39:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 04:02:01 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 **
 **	Si une commande est déjà en cours de construction, alors on traite le
 **	content comme un arg et on l'ajoute au maillon déjà alloué
-**	Sinon on créer effectivement un nouveau maillon	
+**	Sinon on créer effectivement un nouveau maillon
 **
 **	Renvoie le token du mailon ajouté, ou NULL si pbm
 */
 
 t_token	*add_command_token(t_list **token_lst, t_list **e, t_token **current)
 {
-	t_token *new_t;
+	t_token	*new_t;
 	t_list	*new_e;
-	char *str;
+	char	*str;
 
 	if (current && *current)
 	{
@@ -54,11 +54,11 @@ t_token	*add_command_token(t_list **token_lst, t_list **e, t_token **current)
 
 t_token	*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current)
 {
-	(void)e;
-	t_list *new;
-	t_token *token;
+	t_list	*new;
+	t_token	*token;
 	t_token	*last_token;
 
+	(void)e;
 	*current = NULL;
 	new = ft_lstlast(*token_lst);
 	last_token = new ? new->content : NULL;
@@ -83,8 +83,8 @@ t_token	*add_semicolon_token(t_list **token_lst, t_list **e, t_token **current)
 
 t_token	*add_pipe_token(t_list **token_lst, t_list **e, t_token **current)
 {
-	t_list *new;
-	t_token *token;
+	t_list	*new;
+	t_token	*token;
 	t_token	*last_token;
 
 	*current = NULL;
@@ -111,15 +111,17 @@ t_token	*add_pipe_token(t_list **token_lst, t_list **e, t_token **current)
 **	Si l'élement suivant dans la liste à transformer est NULL, syntax error
 */
 
-t_token	*add_redirection_token(t_list **token_lst, t_list **e, t_token **current)
+t_token	*add_redirection_token(t_list **token_lst, t_list **e,
+								t_token **current)
 {
-	(void)current;
-	t_token *token;
-	unsigned int type;
-	char *str;
+	t_token			*token;
+	unsigned int	type;
+	char			*str;
 
+	(void)current;
 	token = NULL;
-	if ((*e)->next == NULL || ft_tabindex(g_symbols_strs, (*e)->next->content) + 1 != COMMAND)
+	if ((*e)->next == NULL || ft_tabindex(g_symbols_strs,
+		(*e)->next->content) + 1 != COMMAND)
 		ft_dsplerr("syntax error near token", (char*)(*e)->content);
 	else
 	{

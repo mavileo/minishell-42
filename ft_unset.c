@@ -6,13 +6,13 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 07:06:11 by mavileo           #+#    #+#             */
-/*   Updated: 2020/06/26 06:35:40 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 04:07:22 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int 	ft_unset(char **args)
+int		ft_unset(char **args)
 {
 	t_env	*save;
 	t_env	*prev;
@@ -20,8 +20,9 @@ int 	ft_unset(char **args)
 
 	i = 1;
 	save = env;
-	while (args[i++] && !(prev = NULL) && (env = save))
+	while (args[i++] && !(prev = NULL))
 	{
+		env = save;
 		while (env)
 		{
 			if (!ft_strcmp(env->name, args[i - 1]))
@@ -31,12 +32,11 @@ int 	ft_unset(char **args)
 				else
 					save = env->next;
 				free_env(env);
-				break;
+				break ;
 			}
 			prev = env;
-			env = env->next;	
+			env = env->next;
 		}
 	}
-	env = save;
-	return (0);
+	return (!(env = save));
 }

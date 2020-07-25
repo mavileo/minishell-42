@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/20 07:33:20 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 04:09:32 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*get_input(void)
 {
-	char *input;
-	char *tmp;
-	char buffer[BUFFER_SIZE];
-	int i;
+	char	*input;
+	char	*tmp;
+	char	buffer[BUFFER_SIZE];
+	int		i;
 
 	input = NULL;
 	ft_memset(buffer, 0, BUFFER_SIZE);

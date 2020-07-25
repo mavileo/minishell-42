@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 01:41:04 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 01:33:40 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 04:05:04 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		check_path(char *path, int print)
 {
-	DIR* dir;
+	DIR *dir;
 
 	dir = opendir(path);
 	if (dir)
@@ -35,7 +35,7 @@ char	*check_points(char *p, int i, int count)
 	if (p[i] == '.' && p[i - 1] == '/' && (p[i + 1] == '/' || !p[i + 1]))
 	{
 		p = ft_strjoin_free(ft_substr(p, 0, i - 1),
-		ft_substr(p, i+ 1, ft_strlen(p)), 3);
+		ft_substr(p, i + 1, ft_strlen(p)), 3);
 		free(tmp);
 	}
 	else if (p[i] == '.' && p[i - 1] == '/' && p[i + 1] &&
@@ -77,57 +77,33 @@ char	*get_path(char *s)
 	count = 0;
 	while (path[i])
 	{
-		if ((path = check_points(path, i, count)) != tmp && !(i = 0))
+		if ((path = check_points(path, i, count)) != tmp)
+			i = 0;
+		if ((path = check_points(path, i, count)) != tmp)
 			tmp = path;
 		else
 			i++;
 	}
 	if (!path || !path[0])
-	{
 		free(path);
+	if (!path || !path[0])
 		path = ft_strdup("/");
-	}
 	if (ft_strlen(path) > 1 && path[ft_strlen(path) - 1] == '/')
 		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
-/*
-int 	ft_cd(char **args)
-{
-	char *path;
 
-	if (!args[1])
-	{
-		path = replace_env_in_str("/home/$USER");
-		actualise_env("PWD", path);
-		chdir((const char *)path);
-		free(path);
-		return (0);
-	}
-	path = get_path(args[1]);
-	if (check_path(path, 1))
-	{
-		free(path);
-		return (1);
-	}
-	actualise_env("PWD", path);
-	chdir((const char *)path);
-	free(path);
-	return (0);
-}
-*/
-
-int 	ft_cd(char **args)
+int		ft_cd(char **args)
 {
-	char *path;
-	char *cwd;
-	int r;
+	char	*path;
+	char	*cwd;
+	int		r;
 
 	path = args[1] ? ft_strdup(args[1]) : replace_env_in_str("/home/$USER");
 	r = 1;
-	if (chdir((const char *)path) == 0) // soit ça marche d'un coup
+	if (chdir((const char *)path) == 0)
 		r = 0;
-	else // soit on essaie en construisant le path
+	else
 	{
 		cwd = getcwd(NULL, 0);
 		cwd = ft_strjoin_free(cwd, "/", 1);
@@ -135,11 +111,10 @@ int 	ft_cd(char **args)
 		if (chdir((const char *)path) == 0)
 			r = 0;
 	}
-	if (r == 1) // soit c'était invalide et on imprime l'erreur et renvoie 1
-		ft_dsplerr(args[1], strerror(errno));	
+	if (r == 1)
+		ft_dsplerr(args[1], strerror(errno));
 	else
 		actualise_env("PWD", path);
 	free(path);
 	return (r);
 }
-
