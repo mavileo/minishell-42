@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signalhandlers.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 04:11:34 by user42            #+#    #+#             */
+/*   Updated: 2020/07/25 04:12:23 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -16,10 +28,10 @@ int		*aaintptr(int v)
 
 void	handle_ctrl_c(int i)
 {
-	t_list *plst;
+	t_list	*plst;
 	int		pid;
-	(void)i;
 
+	(void)i;
 	plst = process_pids;
 	while (plst)
 	{
@@ -35,10 +47,10 @@ void	handle_ctrl_c(int i)
 
 void	handle_ctrl_bs(int i)
 {
-	t_list *plst;
+	t_list	*plst;
 	int		pid;
-	(void)i;
 
+	(void)i;
 	plst = process_pids;
 	while (plst)
 	{

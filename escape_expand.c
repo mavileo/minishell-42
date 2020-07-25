@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:29:44 by user42            #+#    #+#             */
-/*   Updated: 2020/07/25 04:08:43 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 04:22:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ char				*escape_expand(const char *str)
 			ft_memmove(&s[i], &s[i + 1], ft_strlen(s) - i);
 			i--;
 		}
-		else if (s[i] == '\\' && ((q == 0 || (q == '"' &&
-				ft_index("\\$\"", s[i + 1]) != -1))))
+		else if (s[i] == '\\'
+			&& ((q == 0 || (q == '"' && ft_index("\\$\"", s[i + 1]) != -1))))
 			ft_memmove(&s[i], &s[i + 1], ft_strlen(s) - i);
 		else if (s[i] == '$' && q != '\'')
 			i = expand(&s, i) - 1;
