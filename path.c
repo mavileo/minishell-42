@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 16:55:21 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:15:53 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 03:54:13 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int		get_nb_paths(char *path)
 	return (nb_path);
 }
 
-static char	**get_path_tab(char *path)
+static char		**get_path_tab(char *path)
 {
 	char	*tmp;
 	int		i;
@@ -73,7 +73,7 @@ static char	**get_path_tab(char *path)
 **	"/bin" + "/" + "cat"
 */
 
-char	*build_path(char *s1, char *s2)
+char			*build_path(char *s1, char *s2)
 {
 	char *built_path;
 
@@ -83,11 +83,11 @@ char	*build_path(char *s1, char *s2)
 	return (built_path);
 }
 
-static char	*get_exe_path(char **paths, char *name)
+static char		*get_exe_path(char **paths, char *name)
 {
-	struct	stat sb;
-	char	*file;
-	int		i;
+	struct stat	sb;
+	char		*file;
+	int			i;
 
 	i = 0;
 	while (paths[i])
@@ -107,46 +107,22 @@ static char	*get_exe_path(char **paths, char *name)
 	return (NULL);
 }
 
-/*
-int		get_abs_value(char **args)
+char			*get_abs_value(char *cmd)
 {
-	char 	**paths;
-	struct	stat sb;
-	
-	if (!args[0] || !*args[0])
-		return (1);
-	if (!get_env_value("PATH"))
-	{
-		args[0] = NULL; // LEAK potentielle
-		return (1);
-	}
-	if (stat(args[0], &sb) == 0 && sb.st_mode & S_IXUSR)
-		return (0);
-	paths = get_path_tab(get_env_value("PATH"));
-	args[0] = ft_reassign(args[0], get_exe_path(paths, args[0]));
-	ft_tabfree(paths);
-	return (args[0] == NULL);
-}
-*/
-
-char	*get_abs_value(char *cmd)
-{
-	char *built_path;
-	char **path_tab;
-	struct stat sb;
+	char		*built_path;
+	char		**path_tab;
+	struct stat	sb;
 
 	if (!get_env_value("PATH"))
 		return (NULL);
-	if (cmd[0] == '/') // c'est un path absolu : on le test c'est tout
-	{
-		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IFMT) != S_IFDIR) // test ok
-			return (ft_strdup(cmd));
-	}
-	else if (ft_index(cmd, '/') > 0) // c'est un path relatif, on le build puis on le test
+	if ((cmd[0] == '/') && (stat(cmd, &sb) == 0 &&
+		(sb.st_mode & S_IFMT) != S_IFDIR))
+		return (ft_strdup(cmd));
+	if (cmd[0] != '/' && ft_index(cmd, '/') > 0)
 	{
 		built_path = getcwd(NULL, 0);
 		built_path = ft_reassign(built_path, build_path(built_path, cmd));
-		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IFMT) != S_IFDIR) // test ok
+		if (stat(cmd, &sb) == 0 && (sb.st_mode & S_IFMT) != S_IFDIR)
 			return (built_path);
 		free(built_path);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_display_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 01:28:00 by user42            #+#    #+#             */
-/*   Updated: 2020/07/25 01:34:19 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 04:09:15 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 **
 ** si on veut afficher un seul element, il faut le placer sur error_msg
 **
-** donc on obtient ce format de string : "something: some error" 
+** donc on obtient ce format de string : "something: some error"
 */
 
 void	ft_dsplerr(char *arg, char *error_msg)

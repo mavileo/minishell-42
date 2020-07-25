@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   commands_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 05:34:08 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/20 07:33:20 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 04:05:58 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,22 @@ t_list	*commands_list(t_list *tokens)
 	return (commands);
 }
 
-
 /*
 **	Reçoit une liste donc chaque maillon contient une liste de tokens
 **	représentant une commande à traiter
 **	Itère sur la liste pour executer chaque commande + free
 */
 
-void execute_commands(t_list *commands)                                   
+void	execute_commands(t_list *commands)
 {
 	t_list *head;
 	t_list *tmp;
-	
+
 	if (commands == NULL)
 		return ;
 	head = commands;
 	while (commands)
-	{                                                                            
+	{
 		tmp = commands->content;
 		tokens_container(tmp);
 		ft_lstclear(&tmp, &ft_token_free);

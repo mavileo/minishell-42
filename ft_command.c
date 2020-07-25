@@ -6,13 +6,11 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:13:01 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 03:35:20 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int builtin;
 
 char	**env_to_envp(void)
 {
@@ -47,11 +45,12 @@ int		exec_bin(t_list *token, char **envp)
 {
 	char	*cmd_path;
 	int		pid;
-	
+
 	cmd_path = get_abs_value(((t_token *)token->content)->args[0]);
 	if (cmd_path == NULL)
 	{
-		ft_dsplerr(((t_token *)token->content)->args[0], "commande introuvable");
+		ft_dsplerr(((t_token *)token->content)->args[0],
+		"commande introuvable");
 		add_env("PIPESTATUS", "127");
 		ft_tabfree(envp);
 		return (127);
