@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:29:44 by user42            #+#    #+#             */
-/*   Updated: 2020/07/24 17:13:35 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 04:15:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static unsigned int	expand(char **old, unsigned int i)
 {
-	char *start;
-	char *varvalue;
-	char *varname;
-	unsigned int j;
+	char			*start;
+	char			*varvalue;
+	char			*varname;
+	unsigned int	j;
 
 	j = 1;
 	while (ft_isalnum((int)(*old)[i + j]) || (*old)[i + j] == '_')
@@ -41,11 +41,11 @@ static unsigned int	expand(char **old, unsigned int i)
 	return (i + ft_strlen(varvalue) - 1);
 }
 
-char	*escape_expand(const char *str)
+char				*escape_expand(const char *str)
 {
-	char *s;
-	unsigned int i;
-	char q;
+	char			*s;
+	unsigned int	i;
+	char			q;
 
 	q = 0;
 	i = 0;
@@ -58,7 +58,8 @@ char	*escape_expand(const char *str)
 			ft_memmove(&s[i], &s[i + 1], ft_strlen(s) - i);
 			i--;
 		}
-		else if (s[i] == '\\' && ((q == 0 || (q == '"' && ft_index("\\$\"", s[i + 1]) != -1))))
+		else if (s[i] == '\\'
+			&& ((q == 0 || (q == '"' && ft_index("\\$\"", s[i + 1]) != -1))))
 			ft_memmove(&s[i], &s[i + 1], ft_strlen(s) - i);
 		else if (s[i] == '$' && q != '\'')
 			i = expand(&s, i) - 1;
