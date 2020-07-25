@@ -1,17 +1,14 @@
-// 42 HEADER
-
-/*
-**	[NAME] :
-**	ft_tabindex
-**
-**  [DESCRIPTION] :
-**	use the ft_strcmp() function to find a given string inside the given
-**	two-dimensional array.
-**
-**	[RETURN VALUE] :
-**	returns the index where string 's' was found or -1.
-**
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tabindex.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 03:49:02 by user42            #+#    #+#             */
+/*   Updated: 2020/07/25 03:49:11 by user42           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 

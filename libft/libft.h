@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:29:48 by pmouhali          #+#    #+#             */
-/*   Updated: 2020/07/10 19:00:40 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 04:09:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define true  1
-# define false 0
+# define TRUE  1
+# define FALSE 0
 
 # define BUFFER_SIZE 4096
 
@@ -74,20 +74,18 @@ void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
-void (*del)(void *));
+				void (*del)(void *));
 int				ft_index(const char *s, int c);
 int				ft_indexr(const char *s, int c);
+int				ft_tabindex(const char *tab[], const char *s);
 void			ft_lstprint(t_list *lst, void (*print)(void*));
-void    		ft_lstinsert(t_list *elem, t_list *new_elem);
+void			ft_lstinsert(t_list *elem, t_list *new_elem);
 void			ft_tabfree(char **tab);
-void    		ft_lstremove(t_list *elem, void (*delete)(void *e));
-int     		ft_tabindex(const char *tab[], const char *s);
-char    		**ft_tabpush(char *tab[], const char *s);
-t_list  *ft_lstfirst(t_list *lst);
-char	*ft_strjoin_free(char *s1, char *s2, int c);
-void    *ft_reassign(void *oldptr, void *newptr);
-void    **ft_tabdup(char *tab[], char *(*dup)(char *));
-
-int				get_next_line(int fd, char **line);
+void			ft_lstremove(t_list *elem, void (*delete)(void *e));
+void			*ft_reassign(void *oldptr, void *newptr);
+void			**ft_tabdup(char *tab[], char *(*dup)(char *));
+t_list			*ft_lstfirst(t_list *lst);
+char			**ft_tabpush(char *tab[], const char *s);
+char			*ft_strjoin_free(char *s1, char *s2, int c);
 
 #endif

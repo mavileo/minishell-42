@@ -6,7 +6,7 @@
 /*   By: user42 <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 16:32:41 by user42            #+#    #+#             */
-/*   Updated: 2020/07/24 16:33:38 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/25 03:51:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static int	ft_tablen(const char *tab[])
 	return (i);
 }
 
-char	**ft_tabpush(char *tab[], const char *s)
+char		**ft_tabpush(char *tab[], const char *s)
 {
-	char **copy;
-	int len;
-	int i;
+	char	**copy;
+	int		len;
+	int		i;
 
 	if (!s)
 		return (tab);
