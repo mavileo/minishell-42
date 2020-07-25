@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 06:54:51 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:32:23 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:05:24 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_env(char **args)
 	t_env	*tmp;
 
 	(void)args;
-	tmp = env;
+	tmp = g_env;
 	while (tmp)
 	{
 		ft_putstr_fd(tmp->name, 1);

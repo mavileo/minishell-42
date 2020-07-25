@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 19:04:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:59:12 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:03:50 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		add_env(char *name, char *value)
 	t_env	*save;
 	t_env	*new;
 
-	save = env;
+	save = g_env;
 	if (get_env(name))
 	{
 		actualise_env(name, value);
@@ -37,15 +37,15 @@ int		add_env(char *name, char *value)
 	new->name = ft_strdup(name);
 	new->value = ft_strdup(value);
 	new->next = NULL;
-	if (env == NULL)
+	if (g_env == NULL)
 	{
-		env = new;
+		g_env = new;
 		return (0);
 	}
-	while (env->next != NULL)
-		env = env->next;
-	env->next = new;
-	env = save;
+	while (g_env->next != NULL)
+		g_env = g_env->next;
+	g_env->next = new;
+	g_env = save;
 	return (0);
 }
 
@@ -77,7 +77,7 @@ t_env	*get_env(char *name)
 {
 	t_env *tmp;
 
-	tmp = env;
+	tmp = g_env;
 	if (!name || !tmp)
 		return (NULL);
 	while (tmp)
@@ -93,7 +93,7 @@ char	*get_env_value(char *name)
 {
 	t_env *tmp;
 
-	tmp = env;
+	tmp = g_env;
 	if (!name || !tmp || !name[0])
 		return (NULL);
 	while (tmp)
@@ -109,13 +109,13 @@ void	*free_all_env(void)
 {
 	t_env	*tmp;
 
-	while (env)
+	while (g_env)
 	{
-		free(env->name);
-		free(env->value);
-		tmp = env->next;
-		free(env);
-		env = tmp;
+		free(g_env->name);
+		free(g_env->value);
+		tmp = g_env->next;
+		free(g_env);
+		g_env = tmp;
 	}
-	return (env);
+	return (g_env);
 }

@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:35:20 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:07:13 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**env_to_envp(void)
 	int		i;
 
 	i = 0;
-	tmp = env;
+	tmp = g_env;
 	while (tmp)
 	{
 		i++;
@@ -28,7 +28,7 @@ char	**env_to_envp(void)
 	}
 	if (!(res = malloc(sizeof(char *) * (i + 1))))
 		return (NULL);
-	tmp = env;
+	tmp = g_env;
 	i = 0;
 	while (tmp)
 	{
@@ -72,9 +72,10 @@ int		check_builtins(t_list *token)
 	char	*tmp;
 
 	i = 0;
-	while (builtins[i])
+	while (g_builtins_list[i])
 	{
-		if (!ft_strcmp(((t_token *)token->content)->args[0], builtins[i]))
+		if (!ft_strcmp(((t_token *)token->content)->args[0],
+			g_builtins_list[i]))
 		{
 			i = (g_builtins[i](((t_token *)token->content)->args));
 			add_env("PIPESTATUS", (tmp = ft_itoa(i)));

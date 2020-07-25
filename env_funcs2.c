@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 04:43:27 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 03:32:13 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:08:31 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ char	*replace_env_in_str(char *str)
 	return (res);
 }
 
-void	*free_env(t_env *env)
+void	*free_env(t_env *g_env)
 {
-	free(env->name);
-	free(env->value);
-	free(env);
-	env = NULL;
-	return (env);
+	free(g_env->name);
+	free(g_env->value);
+	free(g_env);
+	g_env = NULL;
+	return (g_env);
 }
 
 t_env	*init_actualise(char *name, char *value)
@@ -77,11 +77,11 @@ t_env	*init_actualise(char *name, char *value)
 		return (new);
 	new->name = ft_strdup(name);
 	new->value = ft_strdup(value);
-	if (env && !ft_strncmp(env->name, name, ft_strlen(name)))
+	if (g_env && !ft_strncmp(g_env->name, name, ft_strlen(name)))
 	{
-		new->next = env->next;
-		free_env(env);
-		env = new;
+		new->next = g_env->next;
+		free_env(g_env);
+		g_env = new;
 		return (NULL);
 	}
 	return (new);
@@ -92,22 +92,23 @@ int		actualise_env(char *name, char *value)
 	t_env	*ret;
 	t_env	*new;
 
-	ret = env;
+	ret = g_env;
 	if (!(new = init_actualise(name, value)))
 		return (0);
-	while (env)
+	while (g_env)
 	{
-		if (env->next && !ft_strncmp(env->next->name, name, ft_strlen(name)))
+		if (g_env->next && !ft_strncmp(g_env->next->name, name,
+			ft_strlen(name)))
 		{
-			new->next = env->next->next;
-			free_env(env->next);
-			env->next = new;
+			new->next = g_env->next->next;
+			free_env(g_env->next);
+			g_env->next = new;
 			break ;
 		}
-		env = env->next;
+		g_env = g_env->next;
 	}
-	if (env == NULL)
+	if (g_env == NULL)
 		free_env(new);
-	env = ret;
+	g_env = ret;
 	return (0);
 }

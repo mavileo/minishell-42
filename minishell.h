@@ -56,11 +56,11 @@ typedef struct		s_fds
 	t_pipe	pipe;
 }					t_fds;
 
-extern t_env	*env;
-extern t_list	*process_pids;
+extern t_env	*g_env;
+extern t_list	*g_process_pids;
 extern int		(*g_builtins[]) ();
 extern int		(*g_exec_token[]) ();
-extern char		*builtins[];
+extern char		*g_builtins_list[];
 
 /* SIGNAUX */
 int     *aaintptr(int v);

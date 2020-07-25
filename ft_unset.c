@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 07:06:11 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 04:07:22 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:05:50 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ int		ft_unset(char **args)
 	int		i;
 
 	i = 1;
-	save = env;
+	save = g_env;
 	while (args[i++] && !(prev = NULL))
 	{
-		env = save;
-		while (env)
+		g_env = save;
+		while (g_env)
 		{
-			if (!ft_strcmp(env->name, args[i - 1]))
+			if (!ft_strcmp(g_env->name, args[i - 1]))
 			{
 				if (prev)
-					prev->next = env->next;
+					prev->next = g_env->next;
 				else
-					save = env->next;
-				free_env(env);
+					save = g_env->next;
+				free_env(g_env);
 				break ;
 			}
-			prev = env;
-			env = env->next;
+			prev = g_env;
+			g_env = g_env->next;
 		}
 	}
-	return (!(env = save));
+	return (!(g_env = save));
 }

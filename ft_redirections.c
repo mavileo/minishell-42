@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:53:46 by user42            #+#    #+#             */
-/*   Updated: 2020/07/25 03:39:33 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:00:36 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,27 @@
 **	$> grep .c << list.txt | cat -e
 **	$> >> file.txt
 **	$> grep carrots < filethatdoesntexist.c
-**	$> grep "carrots" < potager.c > list.txt >> file.txt 
+**	$> grep "carrots" < potager.c > list.txt >> file.txt
 **
 **
-**	La commande (si il y en a une) se situera toujours à gauche de la rediretion.
+**	La commande (si il y en a une) se situera toujours à
+**  gauche de la rediretion.
 **	Les trois fonctions suivront les mêmes étapes :
 **
 **	1. sauvegarder STDOUT ou STDIN
 **	2. ouvrir le fichier, récupérer le fd
 **	3. modifier STDIN ou STDOUT avec le fd obtenu
 **	4. si le token suivant est une redirection, call
-**	5. si le token suivant n'est pas une redirection, go back jusqu'à la commande, call ft_command
+**	5. si le token suivant n'est pas une redirection,
+**  go back jusqu'à la commande, call ft_command
 **		5.1 si aucune commande n'est trouvée, ne fais rien
 **	6. restorer STDOUT ou STDIN
 **	7. close le fd
 **
 **	Les restore/close sont gérés récursivement.
 **	La dernière redirection execute la commande.
-**	Donc tout les fichiers seront bien crées, et la bonne redirection sera effectuée.
+**	Donc tout les fichiers seront bien crées,
+**  et la bonne redirection sera effectuée.
 **	Même sans commande, les redirections s'executent.
 */
 
@@ -50,7 +53,7 @@ t_list		*retrieve_command(t_list *token)
 	if (token->prev == NULL)
 		return (NULL);
 	while ((t = token->content) && t->type > COMMAND && t->type <= R_INPUT)
-		token = token->prev;		
+		token = token->prev;
 	if (t->type == COMMAND)
 		return (token);
 	else
@@ -59,10 +62,10 @@ t_list		*retrieve_command(t_list *token)
 
 int			ft_r_append(t_list *token, t_fds *fds)
 {
-	int stdout_s;
-	int f_fd;
-	t_list *command;
-	char *filename;
+	int		stdout_s;
+	int		f_fd;
+	t_list	*command;
+	char	*filename;
 
 	stdout_s = dup(STDOUT_FILENO);
 	filename = ((t_token*)token->content)->args[0];
@@ -83,10 +86,10 @@ int			ft_r_append(t_list *token, t_fds *fds)
 
 int			ft_r_trunc(t_list *token, t_fds *fds)
 {
-	int stdout_s;
-	int f_fd;
-	t_list *command;
-	char *filename;
+	int		stdout_s;
+	int		f_fd;
+	t_list	*command;
+	char	*filename;
 
 	stdout_s = dup(STDOUT_FILENO);
 	filename = ((t_token*)token->content)->args[0];
@@ -107,10 +110,10 @@ int			ft_r_trunc(t_list *token, t_fds *fds)
 
 int			ft_r_input(t_list *token, t_fds *fds)
 {
-	int stdin_s;
-	int f_fd;
-	t_list *command;
-	char *filename;
+	int		stdin_s;
+	int		f_fd;
+	t_list	*command;
+	char	*filename;
 
 	stdin_s = dup(STDIN_FILENO);
 	filename = ((t_token*)token->content)->args[0];
