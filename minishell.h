@@ -73,13 +73,13 @@ void    ft_dsplerr(char *arg, char *error_msg);
 char    *get_input(void);
 void		prompt(void);
 t_list		*input_to_token_list(char *input);
-int			get_abs_value(char **args);
 t_list		*get_first_token(t_list *tokens_list);
 t_list		*get_next_semicolon(t_list *token);
 t_list		*get_next_pipe(t_list *token);
 t_list		*get_next_redirection(t_list *token);
 t_list		*get_next_command(t_list *token);
 t_list		*get_next_token(t_list *token);
+char    *build_path(char *s1, char *s2);
 
 /* VARIABLES D'ENVIRONNEMENT */
 int			add_env(char *name, char *value);
@@ -91,7 +91,7 @@ char		*replace_env_in_str(char *str);
 void		*free_env(t_env *env);
 void		*free_all_env(void);
 int			check_path(char *path, int print);
-int			get_abs_value(char **args);
+char		*get_abs_value(char *cmd);
 char		**env_to_envp(void);
 
 /* BUILTINS */

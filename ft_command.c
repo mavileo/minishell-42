@@ -6,7 +6,7 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 17:29:13 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/19 18:52:14 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 03:13:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,41 +43,27 @@ char	**env_to_envp(void)
 	return (res);
 }
 
-void	free_envp(char **envp)
-{
-	int i;
-
-	i = 0;
-	while (envp[i])
-		free(envp[i++]);
-	free(envp);
-
-}
-
 int		exec_bin(t_list *token, char **envp)
 {
-	char	*s;
+	char	*cmd_path;
 	int		pid;
-
-	s = ft_strdup(((t_token *)token->content)->args[0]);
-	if (get_abs_value(((t_token *)token->content)->args))
+	
+	cmd_path = get_abs_value(((t_token *)token->content)->args[0]);
+	if (cmd_path == NULL)
 	{
-		ft_putstr_fd(s, STDERR_FILENO);
-		ft_putstr_fd(" : commande introuvable\n", STDERR_FILENO);
-		free(s);
-		add_env("PIPESTATUS", (s = ft_itoa(127)));
-		free(s);
-		free_envp(envp);
+		ft_dsplerr(((t_token *)token->content)->args[0], "commande introuvable");
+		add_env("PIPESTATUS", "127");
+		ft_tabfree(envp);
 		return (127);
 	}
-	free(s);
 	if ((pid = (fork())) == 0)
 	{
-		execve(((t_token *)token->content)->args[0], ((t_token *)token->content)->args, envp);
+		execve(cmd_path, ((t_token *)token->content)->args, envp);
 		exit(errno);
 	}
 	save_process_pid(pid);
-	free_envp(envp);
+	free(cmd_path);
+	ft_tabfree(envp);
 	return (-1);
 }
 
@@ -105,21 +91,13 @@ int		ft_command(t_list *token, t_fds *fds)
 {
 	char	**envp;
 
-	if (!ft_strcmp(((t_token *)token->content)->args[0], "..") ||
-		!ft_strcmp(((t_token *)token->content)->args[0], "."))
-	{
-		ft_putstr_fd(((t_token *)token->content)->args[0], STDERR_FILENO);
-		ft_putstr_fd(" : commande introuvable\n", STDERR_FILENO);
-		add_env("PIPESTATUS", "127");
-		return (0);
-	}
 	envp = env_to_envp();
 	(void)fds;
 	if (!token->content)
 		return (1);
 	if (check_builtins(token))
 	{
-		free_envp(envp);
+		ft_tabfree(envp);
 		return (ft_atoi(get_env_value("PIPESTATUS")));
 	}
 	return (exec_bin(token, envp));
