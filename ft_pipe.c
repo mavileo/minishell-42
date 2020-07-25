@@ -6,11 +6,19 @@
 /*   By: mavileo <mavileo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:57:19 by mavileo           #+#    #+#             */
-/*   Updated: 2020/07/25 04:21:00 by mavileo          ###   ########.fr       */
+/*   Updated: 2020/07/25 05:43:05 by mavileo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_list	*skip_redirs(t_list *token)
+{
+	while (token->next && ((t_token *)token->content)->type > 0 &&
+			((t_token *)token->content)->type < 5)
+		token = token->next;
+	return (token);
+}
 
 int		exec_command(t_list *token, t_fds *fds, int status)
 {
@@ -28,14 +36,15 @@ int		exec_command(t_list *token, t_fds *fds, int status)
 	{
 		wait(&status);
 		close(fds->pipe[1]);
-		if (dup2(fds->save_stdout, 1) == -1)
-			return (1);
-		if (dup2(fds->save_stdin, 0) == -1)
+		if ((dup2(fds->save_stdout, 1) == -1) ||
+			(dup2(fds->save_stdin, 0) == -1))
 			return (1);
 		if (dup2(fds->pipe[0], 0) == -1)
 			return (1);
 		close(fds->pipe[0]);
-		ft_pipe(token->next->next, fds);
+		if (((t_token *)token->next->content)->type == PIPE)
+			return (ft_pipe(token->next->next, fds));
+		return (ft_pipe(skip_redirs(token->next), fds));
 	}
 	return (0);
 }
@@ -64,6 +73,18 @@ int		last_command(t_list *token, t_fds *fds, int status)
 	return (0);
 }
 
+t_list	*exec_redirs(t_list *token, t_fds *fds)
+{
+	if (((t_token *)token->content)->type > 0 &&
+			((t_token *)token->content)->type < 4)
+		g_exec_token[((t_token *)token->content)->type](token, fds);
+	while (token && token->content && token->prev &&
+			((t_token *)token->content)->type > 0 &&
+			((t_token *)token->content)->type < 4)
+		token = token->prev;
+	return (token);
+}
+
 int		ft_pipe(t_list *token, t_fds *fds)
 {
 	static int	count = 0;
@@ -72,6 +93,7 @@ int		ft_pipe(t_list *token, t_fds *fds)
 	status = 0;
 	if (!count)
 		token = token->prev;
+	token = exec_redirs(token, fds);
 	if (!count || (token->next && token->next->next &&
 		((t_token *)token->next->content)->type == PIPE &&
 		((t_token *)token->next->next->content)->type == COMMAND))

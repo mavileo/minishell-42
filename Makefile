@@ -33,7 +33,7 @@ OBJS = $(BUILTINS:.c=.o) $(MINISHFCT:.c=.o)
 all: $(NAME)
 
 $(NAME) : libft minishlib
-	gcc -g $(FLAGS) $(MAIN)  $(LIBS) -o $(NAME)
+	gcc -g3 $(FLAGS) $(MAIN)  $(LIBS) -o $(NAME)
 
 libft:
 	cd libft/ && make -s && make -s clean
