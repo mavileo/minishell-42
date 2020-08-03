@@ -1,10 +1,8 @@
 # minishell
 
-test (compiles the libft + one lib from all indicated sources of the minishell) :
+The goal of the project is to code a shell as well as some builtins (cd, pwd, echo, env, export, unset, exit). If the command typed is a builtin, it will run our implementation of this function, otherwise it will look for the corresponding executable in the directories contained in the PATH environment variable. The environment variables are imported when the program is executed, they are those of the shell in which the program was executed.
 
-make minishlib
-
-gcc main.c libft/libft.a minishlib.a
+To test the shell, run the `make` command to generate the executable then execute it with the command `./minishell`.
 
 ## Parsing
 
