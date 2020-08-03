@@ -68,5 +68,3 @@ If an environment variable with the name passed as a parameter is found, its val
 
        void *free_env(t_env *env)
 Free the two chains contained in the link before freeing the link.
-
-Translated with www.DeepL.com/Translator (free version)
